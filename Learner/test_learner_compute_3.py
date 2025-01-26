@@ -442,8 +442,6 @@ class _Base2_learner_1(BaseEstimator):
 		optimizer = select_config['optimizer']
 		annot_str_1 = '%s_%s_%s_%s_%d'%(optimizer,str(l1_reg),str(l2_reg),str(dropout),feature_type_id)
 		if type_query==0:
-			# annot_str = '%s_%s_%d_%d'%(str(l1_reg),str(l2_reg),run_id1,feature_type_id)
-			# annot_str_1 = '%s_%s_%s_%d'%(optimizer,str(l1_reg),str(l2_reg),feature_type_id)
 			annot_str_1 = '%s_%s_%d'%(annot_str_1,method_type_feature_link.lower(),maxiter_num) # add the method type annotation
 
 			filename_save_annot_query1 = '%s.%s'%(filename_save_annot,annot_str_1)
@@ -469,7 +467,6 @@ class _Base2_learner_1(BaseEstimator):
 			batch_norm = select_config['batch_norm']
 			layer_norm = select_config['layer_norm']
 
-			# annot_str_2 = 'feature_%d.%s_%d_%d.%s'%(feature_num,annot_str_1,function_type,group_link_id,annot_str_query)
 			annot_str_2 = 'feature_%d.%s_%d_%d.%d_%d.%s'%(feature_num,annot_str_1,function_type,group_link_id,batch_norm,layer_norm,annot_str_query)
 			
 			column_query = 'filename_save_annot_query1'
@@ -668,6 +665,8 @@ class _Base2_learner_1(BaseEstimator):
 
 		column_idvec = ['motif_id','peak_id','gene_id']
 		column_id3, column_id2, column_id1 = column_idvec[0:3]
+		# feature_type_vec = ['peak_motif','peak_tf']
+		# feature_type_vec = ['peak_tf','peak_motif']
 		feature_type_vec = ['peak_motif','peak_tf','peak_seq']
 
 		file_save_path_1 = output_dir
@@ -834,9 +833,6 @@ class _Base2_learner_1(BaseEstimator):
 					print('data preview: ')
 					print(feature_peak[0:2])
 
-					# feature_type_vec_2 = ['latent_%s'%(feature_type) for feature_type in feature_type_vec]
-					# feature_type_query1, feature_type_query2 = feature_type_vec_2[0:2]
-					# feature_type_query = feature_type_vec_2[1-feature_type_id1]
 					feature_type_query = 'latent_%s'%(feature_type_vec_query[feature_type_id_query])
 					print('feature_type ',feature_type_query)
 
@@ -918,10 +914,7 @@ class _Base2_learner_1(BaseEstimator):
 
 		# ----------------------------------------------
 		# query features
-		# input_dim1 = df_feature_query1.shape[1]
-		# input_dim2 = df_feature_query2.shape[1]
 		list_1 = [df_feature_query1,df_feature_query2]
-		# input_dim_query = [df_query.shape[1] for df_query in list_1]
 		input_dim_query = []
 		query_num1 = len(list_1)
 		for i1 in range(query_num1):
@@ -1182,9 +1175,7 @@ class _Base2_learner_1(BaseEstimator):
 		# feature_vec_1 = feature_vec_query
 		feature_num_query = len(feature_vec_query)
 		df_expr = meta_exps_2.loc[:,feature_vec_query] # shape: (metacell_num,tf_num)
-		# df_expr = df_expr.T  # shape: (tf_num,metacell_num)
-		# df_expr_1 = minmax_scale(df_expr,[0,1])
-
+		
 		df_expr_1 = []
 		df_expr_2 = []
 		if type_query_2 in [0,2]:
@@ -1254,12 +1245,10 @@ class _Base2_learner_1(BaseEstimator):
 		for i1 in range(feature_num_query):
 			feature_query = feature_vec_query[i1]
 			df_query = peak_mtx_1.mul(df_expr_1[feature_query],axis=0) # peak accessibility by TF expression; shape: (metacell_num,peak_num)
-			# df_query = df_query.T  # shape: (peak_num,metacell_num)
 			df_query = df_query.mul(df_proba[feature_query],axis=1) # C_j*X_i*score(i,j); shape: (metacell_num,peak_num)
 			df_query[column_query] = df_annot.loc[query_id_1,column_query]
 			df_value = df_query.groupby(column_query).mean() # shape: (celltype_num,peak_num)
 			df_value_query = df_value.T   # shape: (peak_num,celltype_num)
-			# df_value_query = df_value_query.loc[:,celltype_vec_query]
 			if i1%100==0:
 				max_value = df_value_query.max(axis=1)
 				min_value = df_value_query.min(axis=1)
@@ -1458,8 +1447,6 @@ class _Base2_learner_1(BaseEstimator):
 											save_mode=1,output_file_path=output_file_path_query,verbose=0,select_config=select_config)
 
 				df_score_query1, df_score_query2, data_vec_query1 = t_vec_1
-				# self.test_query_tf_score_1(feature_vec_query=[],flag_log=1,compare_mode=1,save_mode=1,output_file_path='',verbose=0,select_config=select_config)
-
 			else:
 				output_file_path_1 = data_path_save_1
 				output_file_path_query = '%s/folder1_2_2_2'%(output_file_path_1) # rerun with the l1_reg and l2_reg parameters
@@ -1594,75 +1581,6 @@ class _Base2_learner_1(BaseEstimator):
 		return data_vec_query
 
 	## ====================================================
-	# query prediction performance
-	def test_query_pred_score_1(self,data=[],df_annot=[],df_expr=[],save_mode=1,verbose=0,select_config={}):
-
-		gene_num_default = select_config['gene_num_default']
-		peak_num_default = select_config['peak_num_default']
-
-		# input_filename = 'df_test_pred.1_5.1_5.1_5.1.0.60_1000_7.2_3.3.txt'
-		# input_filename_2 = '%s/df_test_pred.1_5.1_5.1_5.1.0.%d_%d_%d.2_3.%d.txt'%()
-
-		num_fold = 10
-		filename_save_annot_query1 = '1_5.1_5.1_5.1.%d.%d_%d'%(model_type_2,gene_num_default,peak_num_default)
-		# filename_save_annot_local = '3'
-		group_id2 = 3
-		group_vec = ['train','valid','test']
-		dict_query_1 = dict()
-		dict_query_2 = dict()
-		for i1 in range(3):
-			group_query = group_vec[i1]
-			dict_query_1[group_query] = []
-
-		for i1 in range(2,3):
-			group_query = group_vec[i1]
-			list_query = dict_query_1[group_query]
-
-			for fold_id in range(num_fold):
-				filename_save_annot_train = '%s_%d.2_3'%(filename_save_annot_query1,fold_id)
-				if group_id2>0:
-					filename_save_annot_local = str(group_id2)
-					filename_save_annot_train = '%s.%s'%(filename_save_annot_train,filename_save_annot_local)
-
-				# input_filename_1 = '%s/df_valid_pred.%s.txt'%(input_file_path,filename_save_annot_train)
-				# input_filename = '%s/df_test_pred.%s.txt'%(input_file_path,filename_save_annot_train)
-				input_filename = '%s/df_%s_pred.%s.txt'%(input_file_path,group_query,filename_save_annot_train)
-				if os.path.exists(input_filename)==False:
-					print('the file does not exist ',input_filename,fold_id)
-					continue
-
-				# dict_query_[group_query].append(input_filename)
-				df1 = pd.read_csv(input_filename,index_col=0,sep='\t')
-				column_vec_1 = df1.columns
-				column_vec_2 = column_vec_1.difference(['epoch'],sort=False)
-				df2 = df1.loc[:,column_vec_2]
-				list_query.append(df2)
-				print('input_filename ',input_filename)
-
-			df_pred2 = pd.concat(list_query,axis=1,join='outer',ignore_index=False)
-			print('df_pred2 ',df_pred2.shape)
-			# dict_query_1.update({group_query:df_pred2})
-
-			df_pred2 = df_pred2.fillna(0)
-			feature_vec_query = df_pred2.index  # the gene identifier
-			sample_vec_query = df_pred2.columns  # the metacells
-			df_expr_query = df_expr.loc[feature_vec_query,sample_vec_query]
-
-			Y_idx_query = df_expr_query
-			Y_hat_idx_query = df_pred2
-			# type_query = self.type_train
-			dict_2 = {'df_expr':df_expr_query,'df_pred':df_pred2}
-			for type_query in [0,1]:
-				loss_query, df_rho_query = self.test_query_compute_pre2(Y=Y_idx_query,Y_hat=Y_hat_idx_query,idx=[],adj=[],
-																		flag_compute=1,flag_loss=1,flag_rho=1,flag_log=0,
-																		type_query=type_query,select_config=select_config)
-				column_query = 'score_%d'%(type_query)
-				dict_2.update({column_query:df_rho_query})
-			dict_query_2[group_query] = dict_2
-
-		return dict_query_2
-
-	## ====================================================
 	# query peak loci and TFs
 	def test_query_feature_vec_1(self,feature_vec_1=[],feature_vec_2=[],df_label=[],group_link_id=2,thresh_dispersions_norm=0.5,sel_num=10,beta_mode=0,select_config={}):
 
@@ -1671,12 +1589,6 @@ class _Base2_learner_1(BaseEstimator):
 		feature_num_1 = len(feature_vec_pre1)
 		print('feature_vec_pre1 ',feature_num_1)
 
-		# if len(feature_vec_1)==0:
-		# 	feature_vec_1 = feature_vec_pre1
-		# else:
-		# 	feature_vec_1_ori = feature_vec_1.copy()
-		# 	feature_vec_1 = pd.Index(feature_vec_1).intersection(feature_vec_pre1,sort=False)
-			
 		if len(feature_vec_1)==0:
 			print('group_link_id ',group_link_id)
 			feature_vec_1 = self.test_query_feature_vec_2(feature_vec_1=feature_vec_1,group_link_id=group_link_id,
@@ -1696,9 +1608,6 @@ class _Base2_learner_1(BaseEstimator):
 
 		feature_query_num2 = len(feature_vec_2)
 		print('feature_vec_2 ',feature_query_num2)
-
-		# feature_query_pre1 = df_label_query1.index # the samples included in the label matrix
-		# sample_query_num = len(feature_query_pre1)
 
 		print('beta_mode ',beta_mode)
 		if beta_mode>0:
@@ -1747,12 +1656,6 @@ class _Base2_learner_1(BaseEstimator):
 				feature_vec_1 = motif_query_vec
 
 			elif group_link_id>1:
-				# rna_meta_ad = self.rna_meta_ad
-				# gene_idvec = rna_meta_ad.var_names
-				# df_gene_annot2 = rna_meta_ad.var
-				# column_query1 = 'dispersions_norm'
-				# df_gene_annot2 = df_gene_annot2.sort_values(by=['dispersions_norm','dispersions'],ascending=False)
-				# gene_vec_1 = df_gene_annot2.index
 				try:
 					rna_meta_ad = self.rna_meta_ad
 					gene_idvec = rna_meta_ad.var_names
@@ -1767,13 +1670,6 @@ class _Base2_learner_1(BaseEstimator):
 				df_gene_annot2 = df_gene_annot2.sort_values(by=['dispersions_norm','dispersions'],ascending=False)
 				gene_vec_1 = df_gene_annot2.index
 				
-				# thresh_dispersions_norm = 0.5
-				# thresh_dispersions_norm = 1.0
-				# num_top_genes = 3000
-				# gene_num_pre1 = 3000
-				# if 'gene_num_query' in select_config:
-				# 	gene_num_pre1 = select_config['gene_num_query']
-
 				id_query1 = (df_gene_annot2[column_query1]>thresh_dispersions_norm)
 				gene_highly_variable = gene_vec_1[id_query1]
 				gene_highly_variable_num = len(gene_highly_variable)
@@ -1794,10 +1690,6 @@ class _Base2_learner_1(BaseEstimator):
 				print('motif_query_group2 ',motif_num_group2) # TFs which are not highly variable genes
 				print(motif_query_group2)
 				self.motif_query_group2 = motif_query_group2
-
-				# column_query1 = 'dispersions_norm'
-				# df_gene_annot_query2 = df_gene_annot2.loc[motif_query_vec,:]
-				# df_gene_annot_query2 = df_gene_annot_query2.sort_values(by=['dispersions_norm','dispersions'],ascending=False)
 
 				feature_vec_signal = self.feature_vec_signal
 				feature_num_signal = len(feature_vec_signal)
@@ -1841,96 +1733,6 @@ class _Base2_learner_1(BaseEstimator):
 					motif_query_num1 = len(motif_query_vec_1)
 					print('TFs with highly variable expression or signals ',motif_query_num1)
 					feature_vec_1 = motif_query_vec_1
-
-				elif group_link_id in [5]:
-					motif_query_vec_1 = pd.Index(motif_query_group1).difference(feature_vec_signal,sort=False)
-					motif_query_num1 = len(motif_query_vec_1)
-					print('TFs with highly variable expression but without signals ',motif_query_num1)
-					print(motif_query_vec_1[0:10])
-					feature_vec_1 = motif_query_vec_1
-
-				elif group_link_id in [6]:
-					motif_query_vec_1 = pd.Index(motif_query_vec).difference(feature_vec_signal,sort=False)
-					motif_query_num1 = len(motif_query_vec_1)
-					print('TFs without signals ',motif_query_num1)
-					print(motif_query_vec_1[0:10])
-					feature_vec_1 = motif_query_vec_1
-
-				elif group_link_id in [7]:
-					sel_num1 = 50
-					input_filename = 'test_query_feature_vec_signal_2.txt'
-					df1 = pd.read_csv(input_filename,index_col=0,sep='\t')
-					column_query = 'feature_name'
-					feature_vec_signal_query = np.asarray(df1[column_query])
-					motif_query_vec_1 = pd.Index(motif_query_group1).difference(feature_vec_signal,sort=False)
-					motif_query_vec_2 = pd.Index(motif_query_vec_1).union(feature_vec_signal_query[0:sel_num1],sort=False)
-					motif_query_num1 = len(motif_query_vec_1)
-					print('TFs with highly variable expression but without signals ',motif_query_num1)
-					
-					motif_query_num2 = len(motif_query_vec_2)
-					print('TFs with highly variable expression or signals ',motif_query_num2)
-					print(motif_query_vec_2[0:10])
-					feature_vec_1 = motif_query_vec_2
-
-				elif group_link_id in [8,20,30]:
-					motif_query_vec_1 = pd.Index(motif_query_group2).difference(feature_vec_signal,sort=False)
-					motif_query_num1 = len(motif_query_vec_1)
-					print('TFs which are not highly variable and without signals ',motif_query_num1)
-					print(motif_query_vec_1[0:10])
-
-					column_query1 = 'dispersions_norm'
-					df_gene_annot_query = df_gene_annot2.loc[motif_query_vec_1,:]
-					df_gene_annot_query = df_gene_annot_query.sort_values(by=['dispersions_norm','dispersions'],ascending=True)
-					motif_query_vec_1 = df_gene_annot_query.index
-					# feature_vec_1 = motif_query_vec_1
-					# feature_vec_1 = motif_query_vec_1[0:feature_num_signal]
-					# sel_num1 = 20
-					sel_num1 = 100
-					if group_link_id in [20]:
-						sel_num1 = 50
-					elif group_link_id in [30]:
-						sel_num1 = 20
-					feature_vec_1 = motif_query_vec_1[0:sel_num1]
-
-				elif group_link_id in [9,21,31]:
-					motif_query_vec_1 = pd.Index(motif_query_group1).difference(feature_vec_signal,sort=False)
-					motif_query_num1 = len(motif_query_vec_1)
-					print('TFs which are highly variable but without signals ',motif_query_num1)
-					print(motif_query_vec_1[0:10])
-
-					column_query1 = 'dispersions_norm'
-					df_gene_annot_query = df_gene_annot2.loc[motif_query_vec_1,:]
-					df_gene_annot_query = df_gene_annot_query.sort_values(by=['dispersions_norm','dispersions'],ascending=False)
-					motif_query_vec_1 = df_gene_annot_query.index
-					# feature_vec_1 = motif_query_vec_1
-					# feature_vec_1 = motif_query_vec_1[0:feature_num_signal]
-					# sel_num1 = 20
-					sel_num1 = 100
-					if group_link_id in [21]:
-						sel_num1 = 50
-					elif group_link_id in [31]:
-						sel_num1 = 20
-					feature_vec_1 = motif_query_vec_1[0:sel_num1]
-
-				elif group_link_id in [32]:
-					column_query1 = 'dispersions_norm'
-					df_gene_annot_query2 = df_gene_annot2.loc[motif_query_vec,:]
-					df_gene_annot_query2 = df_gene_annot_query2.sort_values(by=['dispersions_norm','dispersions'],ascending=True)
-
-					sel_num1 = 200
-					motif_query_vec_pre1 = df_gene_annot_query2.index
-					motif_query_vec_1 = pd.Index(motif_query_vec_pre1).difference(feature_vec_signal,sort=False)
-					feature_vec_1 = motif_query_vec_1[0:sel_num1]
-
-				elif group_link_id in [33]:
-					column_query1 = 'dispersions_norm'
-					df_gene_annot_query2 = df_gene_annot2.loc[motif_query_vec,:]
-					df_gene_annot_query2 = df_gene_annot_query2.sort_values(by=['dispersions_norm','dispersions'],ascending=False)
-
-					sel_num1 = 200
-					motif_query_vec_pre1 = df_gene_annot_query2.index
-					motif_query_vec_1 = pd.Index(motif_query_vec_pre1).difference(feature_vec_signal,sort=False)
-					feature_vec_1 = motif_query_vec_1[0:sel_num1]
 
 		return feature_vec_1
 
@@ -4160,7 +3962,7 @@ class _Base2_learner_1(BaseEstimator):
 		else:
 			data_vec = self.dict_data_query[column_1]
 		motif_query_vec = self.motif_query_vec
-		
+
 		if len(feature_vec_1)==0:
 			feature_vec_1 = motif_query_vec
 			group_link_id = 1
@@ -6326,10 +6128,6 @@ def run_pre1(run_id=1,species='human',cell=0,generate=1,chromvec=[],testchromvec
 		metacell_num = int(metacell_num)
 		peak_distance_thresh = int(peak_distance_thresh)
 		highly_variable = int(highly_variable)
-		# upstream, downstream = int(upstream), int(downstream)
-		# if downstream<0:
-		# 	downstream = upstream
-		# type_id_query = int(type_id_query)
 
 		# thresh_fdr_peak_tf = float(thresh_fdr_peak_tf)
 		type_group = int(type_group)
