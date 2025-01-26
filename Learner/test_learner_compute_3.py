@@ -491,7 +491,6 @@ class _Base2_learner_1(BaseEstimator):
 
 	## ====================================================
 	# query feature matrix and class labels for model training
-	# train one model for each TF (optionally)
 	def train_pre1_unit1(self,data=[],learner=None,feature_vec_1=[],feature_vec_2=[],model_type=1,dim_vec=[],
 							lr=0.001,batch_size=128,n_epoch=50,early_stop=0,maxiter_num=1,flag_mask=1,flag_partial=0,flag_score=0,
 							flag_select_1=1,flag_select_2=0,train_mode=-1,save_mode=1,verbose=0,select_config={}):
@@ -618,32 +617,6 @@ class _Base2_learner_1(BaseEstimator):
 		# print('samples with at least one label ')
 		print('x_train, y_train ',x_train.shape,y_train.shape)
 		print('data preview: ')
-		
-		# if train_mode in [0]:
-		# 	# query filename annotation
-		# 	filename_save_annot = select_config['filename_save_annot_train']
-		# 	# filename_save_annot_query = '%s.%d'%(filename_save_annot,maxiter_num)
-		# 	# select_config.update({'filename_save_annot_query':filename_save_annot_query})
-		# 	method_type_feature_link = select_config['method_type_feature_link']
-		# 	select_config = self.test_query_file_annotation_1(method_type_feature_link=method_type_feature_link,maxiter_num=maxiter_num,type_query=0,select_config=select_config)
-
-		# 	learner_pre1.train_1_combine_1(x=x_train,y=y_train,
-		# 							x_test=x_test,y_test=[],
-		# 							feature_vec_1=feature_vec_1,
-		# 							feature_vec_2=feature_vec_2,
-		# 							model_type=model_type,
-		# 							maxiter_num=maxiter_num,
-		# 							lr=lr,batch_size=batch_size,n_epoch=n_epoch,early_stop=early_stop,
-		# 							include=1,mask_value=-1,flag_mask=flag_mask,
-		# 							flag_partial=flag_partial,
-		# 							flag_select_1=flag_select_1,
-		# 							flag_select_2=flag_select_2,
-		# 							flag_score=flag_score,
-		# 							train_mode=0,
-		# 							save_mode=1,filename_save_annot=filename_save_annot_query,
-		# 							verbose=0,select_config=select_config)
-
-		# 	model_train = learner_pre1.model # model assemble
 
 		self.learner_pre1 = learner_pre1
 
@@ -3041,7 +3014,7 @@ class _Base2_learner_1(BaseEstimator):
 		select_config.update({'model_type_train':model_type_train})
 
 		output_file_path_1 = data_path_save_1
-		output_file_path_query = '%s/folder1_2_2_3'%(output_file_path_1) # rerun with the l1_reg and l2_reg parameters
+		output_file_path_query = '%s/folder1'%(output_file_path_1)
 		if os.path.exists(output_file_path_query)==False:
 			print('the directory does not exist ',output_file_path_query)
 			os.makedirs(output_file_path_query,exist_ok=True)
@@ -3053,32 +3026,7 @@ class _Base2_learner_1(BaseEstimator):
 		flag_connect_2 = 0
 
 		flag_train_query = 2
-		# flag_train_query = 3
-		if flag_train_query in [1]:
-			self.train_pre1_recompute_2_link_unit2(data=data_vec_query1,feature_vec_1=feature_vec_1,feature_vec_2=feature_vec_2,
-														dict_label=dict_label,
-														input_dim_vec=input_dim_vec,
-														n_epoch=n_epoch,
-														batch_size=batch_size,
-														early_stop=early_stop,
-														save_best_only=save_best_only,
-														mask_value=mask_value,
-														model_type=model_type_query,
-														flag_select_1=flag_select_1,
-														flag_proba_train=0,
-														flag_select_train=0,
-														flag_connect_1=flag_connect_1,
-														flag_connect_2=flag_connect_2,
-														flag_train_1=0,
-														flag_train_2=1,
-														use_default=0,
-														beta_mode=beta_mode,
-														save_mode=1,
-														output_file_path='',
-														filename_save_annot=filename_save_annot,
-														verbose=0,select_config=select_config)
-
-		elif flag_train_query in [2]:
+		if flag_train_query in [2]:
 			self.train_pre1_recompute_2_link_unit5(data=data_vec_query1,learner=None,feature_vec_1=feature_vec_1,feature_vec_2=feature_vec_2,
 													feature_vec_pre1=[],
 													dict_label=dict_label,
@@ -4461,20 +4409,13 @@ class _Base2_learner_1(BaseEstimator):
 			list_query1_2 = [['B cells 1','B cells 2','Bcells 3'],
 							['CD4 T cells Naive','T cells 1','T cells 2','T cells 3'],
 							['CD14 Monocytes 1','CD14 Monocytes 2']]
-
-			list_query1_3 = [['B cell precursor','B cells 1','B cells 2','Bcells 3'],
-							['CD4 T cells Naive','T cells 1','T cells 2','T cells 3',
-								'CD4 T cells Mem',
-								'CD8 T cells Naive','CD8 T cells Mem'],
-							['CD14 Monocytes 1','CD14 Monocytes 2']]
-
-			# group_annot_query = 0
+			# group_annot_query = 1
 			column_query1 = 'group_annot_query'
 			if column_query1 in select_config:
 				group_annot_query = select_config[column_query1]
 			print('group_annot_query ',group_annot_query)
 
-			list_group_query = [list_query1_1,list_query1_2,list_query1_3]
+			list_group_query = [list_query1_1,list_query1_2]
 			list_query1 = list_group_query[group_annot_query]
 
 			# filename_save_annot2 = '1'
@@ -4502,23 +4443,6 @@ class _Base2_learner_1(BaseEstimator):
 			print(df_annot_query1[0:5])
 
 			return df_annot_query1
-
-	## ====================================================
-	# query celltype annotations of TF ChIP-seq data
-	def test_query_signal_annot_2(self,data=[],save_mode=1,verbose=0,select_config={}):
-
-		data_path_save_1 = select_config['data_path_save_1']
-		input_file_path_query = '%s/folder_save_2'%(data_path_save_1)
-		input_filename = '%s/test_query_df_score.beta.pbmc.query2.annot1.copy2_2.txt'%(input_file_path_query)
-		df_annot_2_ori = pd.read_csv(input_filename,index_col=0,sep='\t')
-		print('df_annot_2_ori ',df_annot_2_ori.shape)
-		id_1 = (df_annot_2_ori['label']>0)
-		df_annot_2 = df_annot_2_ori.loc[id_1,:]
-		print('df_annot_2 ',df_annot_2.shape)
-		print('data preview ')
-		print(df_annot_2[0:2])
-
-		return df_annot_2
 
 	## ====================================================
 	# prediction performance
@@ -4649,240 +4573,6 @@ class _Base2_learner_1(BaseEstimator):
 				data_vec_query1.append([peak_mtx_normalize_1,df_tf_expr_normalize_1])
 
 		return data_vec_query1
-
-	## ====================================================
-	# query neighbors
-	def test_query_neighbor_unit1(self,df_feature=[],df_neighbor=[],df_similarity=[],n_neighbors=100,n_neighbors_query=50,thresh_distance=2000,distance_const=100,alpha=0.1,iter_id=-1,verbose=0,select_config={}):	
-		
-		flag_query1=1
-		if flag_query1>0:
-			d1 = distance_const
-			# d1 = 100
-			# alpha = 0.1
-			# sample_num = df_feature.shape[0]
-			sample_num = df_neighbor.shape[0]
-			query_idvec = df_feature.index
-
-			# column_vec_query = ['neighbor%d'%(id1) for id1 in np.arange(1,n_neighbors+1)]
-			# df_affinity = df_similarity.copy()
-			column_vec_query = df_neighbor.columns
-			# df_pre2 = pd.DataFrame(index=query_idvec,columns=column_vec_query,dtype=np.float32)
-			df_2 = pd.DataFrame(index=query_idvec,columns=column_vec_query,dtype=np.float32)
-
-			for i2 in range(sample_num):
-				query_id1 = query_idvec[i2]
-				neighbor_query = df_neighbor.loc[query_id1,:]
-				distance = (neigbhor_query - query_id1)/1000 # unit: 1kb
-				
-				print('neighbor_query ',len(neighbor_query),neighbor_query[0:10])
-				print('distance ',distance[0:2],query_id1)
-				
-				distance_abs = distance.abs()
-				print(np.max(distance_abs),np.min(distance_abs),np.mean(distance_abs),np.median(distance_abs))
-
-				decay_rate = np.exp(-alpha*distance.abs()/d1)
-				print('decay_rate ',decay_rate[0:2],query_id1,i2)
-				print(np.max(decay_rate),np.min(decay_rate),np.mean(decay_rate),np.median(decay_rate))
-
-				# df_pre2.loc[query_id1,:] = distance
-				# df_2.loc[query_id1,:] = decay_rate
-
-			# df_2 = np.exp(-alpha*df_pre2.abs()/d1)
-			# df_affinity = df_similarity*df_2
-			df_affinity = df_similarity
-
-			if n_neighbors_query<n_neighbors:
-				df_neighbor_1 = df_neighbor.copy()
-				df_affinity_ori = df_affinity.copy()
-				# df_pre2_ori = df_pre2.copy()
-
-				# n_neighbors_query = 50
-				column_vec_query2 = column_vec_query[0:n_neighbors_query]
-
-				# df_pre2 = df_pre2_ori.loc[:,column_vec_query2] # the distance matrix
-				df_affinity = df_affinity_ori.loc[:,column_vec_query2] # the similarity matrix with decay rate
-				df_neighbor = df_neighbor_1.loc[:,column_vec_query2] # the neighbor matrix
-
-			# print('df_pre2 ',df_pre2.shape)
-			# print(df_pre2[0:2])
-
-			print('df_affinity ',df_affinity.shape)
-			print(df_affinity[0:2])
-
-			print('df_neighbor ',df_neighbor.shape)
-			print(df_neighbor[0:2])
-
-		flag_query2=1
-		if flag_query2>0:
-			# use distance threshold
-			# thresh_distance = 2000
-			# df_mask_1 = (df_pre2.abs()<thresh_distance)
-			# df_affinity_2 = df_affinity[df_mask_1]
-
-			# query_value_1 = np.ravel(df_affinity_2)
-			# id_query = (~np.isnan(query_value_1))
-			# query_value = query_value_1[id_query]
-			# query_num1 = len(query_value_1)
-			# query_num2 = len(query_value)
-			# print('query_value_1, query_value ',query_num1,query_num2)
-
-			# quantile_vec = [0.1,0.25,0.5,0.75,0.9]
-			# quantile_value = utility_1.test_stat_1(query_value,quantile_vec=quantile_vec)
-			# print('quantile_value ',quantile_value,iter_id)
-
-			# thresh_1 = 0.1
-			# thresh_quantile_query = 0.25
-			# thresh_2 = np.quantile(query_value,thresh_quantile_query)
-			# thresh_query1 = np.max([thresh_1,thresh_2])
-			# print('thresh_query1 ',thresh_query1,iter_id)
-
-			# df_mask_2 = (df_affinity_2>thresh_query1)
-			# df_mask_query = (df_mask_1&df_mask_2)
-
-			# df_affinity_query2 = df_affinity_2[df_mask_2]
-			# df_neighbor_query = df_neighbor[df_mask_query]
-
-			# the position of the neighbors
-			sample_num = df_neighbor.shape[0]
-			df_neighbor_query = df_neighbor
-			column_1 = 'pos_1'
-			column_2 = 'neighbor'
-			df_neighbor_query[column_1] = np.asarray(df_neighbor_query.index)
-			df_neighbor_query = df_neighbor_query.melt(id_vars=[column_1],var_name=column_2,value_name='pos_2')
-			df_neighbor_query.index = ['%s.%s'%(id1,id2) for (id1,id2) in zip(df_neighbor_query[column_1],df_neighbor_query[column_2])]
-			
-			# the similarity with the neighbors
-			df_affinity_query = df_affinity
-			df_affinity_query[column_1] = np.asarray(df_affinity_query.index)
-			df_affinity_query = df_affinity_query.melt(id_vars=[column_1],var_name=column_2,value_name='score_1')
-			df_affinity_query.index = ['%s.%s'%(id1,id2) for (id1,id2) in zip(df_affinity_query[column_1],df_affinity_query[column_2])]
-			
-			# recompute similarity using decay rate
-			df_query1 = pd.concat([df_neighbor_query,df_affinity_query],axis=0,join='outer',ignore_index=False)
-			df_query1['distance'] = (df_query1['pos_2']-df_query1['pos_1'])/1000
-			distance_abs = df_query1['distance'].abs()
-			df_query1['decay'] = np.exp(-alpha*distance_abs/d1)
-			df_query1['score_2'] = df_query1['score_1']*df_query1['decay']
-
-			id_query1 = (distance_abs<thresh_distance)
-			# query_value = query_value_1[id_query]
-			query_value = df_query1.loc[id_query1,'score_2'] # find links within distance threshold
-			query_num1 = df_query1.shape[0]
-			query_num2 = len(query_value)
-			print('df_query1, query_num1, query_num2 ',df_query1.shape,query_num1,query_num2,iter_id)
-
-			quantile_vec = [0.1,0.25,0.5,0.75,0.9]
-			quantile_value = utility_1.test_stat_1(query_value,quantile_vec=quantile_vec)
-			print('quantile_value ',quantile_value,iter_id)
-
-			thresh_1 = 0.25
-			thresh_quantile_query = 0.25
-			thresh_2 = np.quantile(query_value,thresh_quantile_query)
-			thresh_query1 = np.max([thresh_1,thresh_2])
-			print('thresh_query1 ',thresh_query1,iter_id)
-
-			id_query2 = (df_query1['score_2']>thresh_query1)
-			id_sel = (id_query1&id_query2)
-
-			df_query1.loc[id_query1,'label_1']=1  # neighbor within distance threshold
-			df_query1.loc[id_query1,'label_2']=1  # neighbor with similarity above threshold
-			df_query2 = df_query1.loc[id_sel,:]
-
-			query_vec_2 = np.asarray(df_query2.loc[:,['pos_1','pos_2']])
-			query_num_2 = len(query_vec_2)
-
-			# id_query2= (~pd.isna(df_neighbor_query['value']))
-			# df_neighbor_query2 = df_neighbor_query.loc[id_query2,:]
-
-			# query_vec = np.asarray(df_neighbor_query2.loc[:,['bin_idx','value']])
-			# query_num = len(query_vec)
-			# print('query_vec ',query_num,iter_id)
-
-			# sample_num = df_neighbor.shape[0]
-			num_1 = sample_num
-			ratio_1 = query_num_2/(num_1**2)
-			print('df_query1, df_query2, ratio_1 ',df_query1.shape,df_query2.shape,query_num_2,ratio_1,iter_id)
-
-			return df_query1, df_query2, query_vec_2
-
-	## ====================================================
-	# query neighbors
-	def test_query_neighbor_unit2(self,df_feature=[],df_neighbor=[],df_similarity=[],n_neighbors=100,n_neighbors_query=50,thresh_distance=2000,distance_const=100,alpha=0.1,iter_id=-1,verbose=0,select_config={}):	
-			
-		# mask_value = -1
-		# adj_query = pd.DataFrame(index=bin_idx,columns=bin_idx,data=mask_value,dtype=np.float32)
-		# bin_idx = pd.Index(bin_idx)
-		# query_idvec = adj_query.index
-
-		query_value = np.abs(np.ravel(df_similarity))
-		thresh_1 = 0.2
-		thresh_quantile_query = 0.10
-		thresh_2 = np.quantile(query_value,thresh_quantile_query)
-		thresh_query1 = np.min([thresh_1,thresh_2])
-		print('thresh_query1 ',thresh_query1,iter_id)
-
-		# query links with similarity below threshold
-		# mask_1 = (df_similarity.abs()<thresh_query1)
-		sample_num = df_neighbor.shape[0]
-		df_neighbor_query = df_neighbor
-		column_1 = 'pos_1'
-		column_2 = 'neighbor'
-		column_3 = 'pos_2'
-
-		df_neighbor_query = df_neighbor
-		df_neighbor_query[column_1] = np.asarray(df_neighbor_query.index)
-		df_neighbor_query = df_neighbor_query.melt(id_vars=[column_1],var_name=column_2,value_name='pos_2')
-		# df_neighbor_query.index = ['%s.%s'%(id1,id2) for (id1,id2) in zip(df_neighbor_query[column_1],df_neighbor_query['pos_2'])]
-		df_neighbor_query.index = utility_1.test_query_index(df_neighbor_query,column_vec=['pos_1','pos_2'])
-
-		df_query1 = df_similarity
-		df_query1[column_1] = np.asarray(df_query1.index)
-		df_query1 = df_query1.melt(id_vars=[column_1],var_name='pos_2',value_name='score_1')
-		df_query1.index = utility_1.test_query_index(df_query1,column_vec=['pos_1','pos_2'])
-		# df_query1 = df_query1.sort_values(by=['score_1'],ascending=False)
-
-		id1 = (df_query1['score_1']<thresh_query1)
-		df_query2 = df_query1.loc[id1,:]
-		query_idvec = df_query1.index
-		query_vec = df_query2.index
-		
-		# query links in the neighbor group
-		neighbor_query = df_neighbor_query.index
-		query_vec_2 = pd.Index(query_vec).intersection(neighbor_query,sort=False)
-		df_query2_1 = df_query1.loc[query_vec_2,:]
-		print('query_vec_2 ',len(query_vec_2))
-
-		query_vec_3 = utility_1.test_query_index(df_query2_1,column_vec=['pos_2','pos_1'])
-		query_vec_2 = pd.Index(query_vec_2).union(query_vec_3,sort=False)
-		print('query_vec_2, query_vec_3 ',len(query_vec_2),len(query_vec_3))
-
-		query_group2 = pd.Index(query_vec).difference(query_vec_2,sort=False)
-		df_query2_2 = df_query1.loc[query_group2,:]
-
-		return df_query2_2, query_vec_2
-
-	## ====================================================
-	# query neighbors
-	def test_query_neighbor_unit3(self,df_feature=[],df_neighbor=[],n_neighbors=100,n_neighbors_query=50,thresh_distance=2000,distance_const=100,alpha=0.1,iter_id=-1,select_config={}):	
-			
-			mask_value = -1
-			adj_query = pd.DataFrame(index=bin_idx,columns=bin_idx,data=mask_value,dtype=np.float32)
-			bin_idx = pd.Index(bin_idx)
-			query_idvec = adj_query.index
-
-			for i2 in range(query_num):
-				pos_1,pos_2 = query_vec[i1]
-				adj_query.loc[pos_1,pos_2] = 1
-				adj_query.loc[pos_2,pos_1] = 1
-
-			for i2 in range(sample_num):
-				# query_id1 = bin_idx[i2]
-				query_id1 = query_vec[i2]
-				adj_query.loc[query_id1,query_id1] = 1
-				id_query2 = (adj_query.loc[query_id1,:]<0)
-				
-				pos_query = query_idvec[id_query2]
-				neighbor_query1 = df_neighbor_1.loc[query_id1,:]
 
 	## ====================================================
 	# load sequence feature 
@@ -5234,17 +4924,6 @@ class _Base2_learner_1(BaseEstimator):
 		else:
 			y_train_pre2 = y1  # use pseudo-labeled training samples before the selection
 				
-		# mask_query = (y_train_pre2>mask_value)
-		# id_1 = (mask_query.sum(axis=1)>0)	# there is at least one pseudo-labeled sample for each TF;
-		# # y_train2 = y_train_2[mask_query]
-		# # y_train2 = y_train2.dropna(how='all')
-		# # y_train2 = y_train2.fillna(mask_value)
-		# # query_idvec = y_train_1.index
-		# # id1 = query_idvec[id_1]
-		# y_train_2 = y_train_pre2.loc[id_1]
-		# sample_id_train_2 = y_train_2.index
-		# x_train_2 = x1.loc[sample_id_train_2,:]
-
 		# there is at least one pseudo-labeled sample for each TF;
 		x_train_2, y_train_2 = utility_1.test_query_sample_pre1(y=y_train_pre2,x=x1,
 																mask_value=mask_value,
@@ -5810,210 +5489,6 @@ class _Base2_learner_1(BaseEstimator):
 													save_mode=1,verbose=0,select_config=select_config)
 
 		return select_config
-
-	## =====================================================
-	# model training
-	# train model for peak-TF association prediction for different TFs together
-	def train_2_combine_pre2(self,x=[],y=[],x_train=[],y_train=[],x_test=[],y_test=[],feature_vec_1=[],feature_vec_2=[],learner=None,dict_label={},mask_value=-1,lr=0.001,batch_size=128,save_mode=1,verbose=0,select_config={}):
-
-		flag_train_2 = 1
-		if flag_train_2>0:
-			x1 = x
-			y1 = y
-			sample_id1 = y1.index
-			feature_num1 = len(feature_vec_1)
-			# y_train_pre2 = pd.DataFrame(index=sample_id1,columns=feature_vec_1,data=mask_value,dtype=np.float32)
-			
-			model_type_combine = 1
-			select_config.update({'model_type_combine':model_type_combine})
-			
-			feature_num1 = len(feature_vec_1)
-			
-			if learner is None:
-				learner = self.learner_pre2
-
-			df_label_query1 = self.df_label_query1
-			feature_vec_pre1 = df_label_query1.columns
-			feature_vec_1_ori = feature_vec_1.copy()
-			feature_vec_1 = pd.Index(feature_vec_1).intersection(feature_vec_pre1,sort=False)
-			
-			feature_num_pre1 = len(feature_vec_pre1)
-			feature_num1_ori = len(feature_vec_1_ori)
-			feature_num1 = len(feature_vec_1)
-			print('feature_vec_pre1 ',feature_num_pre1)
-			print('feature_vec_1_ori ',feature_num1_ori)
-			print('feature_vec_1 ',feature_num1)
-
-			feature_num2 = len(feature_vec_2)
-			print('feature_vec_2 ',feature_num2)
-			
-			dim_vec_query = select_config['dim_vec_2']
-			dim_1 = dim_vec_query[-2]
-			
-			# hidden_dim1 = dim_1
-			hidden_dim1 = 32
-			dim_vec_2 = [hidden_dim1]
-			# n_gat_layers=2
-			# n_attn_heads=4
-			n_gat_layers=1
-			n_attn_heads=2
-			
-			l1_reg=0
-			l2_reg=0
-			l2_reg_bias=0
-			batch_norm = 1
-			
-			from_logits = select_config['from_logits']
-			model_name = 'train_2'
-			print('dim_vec_query ',dim_vec_query)
-			print('dim_vec_2 ',dim_vec_2)
-			print('from_logits ',from_logits)
-			interval = 1000
-
-			df_feature_label = self.df_feature_label_1
-			print('df_feature_label ',df_feature_label.shape)
-			print('data preview ')
-			print(df_feature_label[0:2])
-
-			input_dim_1 = x_train.shape[1]
-			input_dim_2 = df_feature_label.shape[1]
-			model_train = learner._build_link_1(input_dim=input_dim_1,input_dim_2=input_dim_2,
-									dim_vec=dim_vec_query,
-									dim_vec_2=dim_vec_2,
-									feature_num1=feature_num1,
-									feature_num2=interval,
-									n_gat_layers=n_gat_layers,
-									n_attn_heads=n_attn_heads,
-									l1_reg=l1_reg,
-									l2_reg=l2_reg,
-									l2_reg_bias=l2_reg_bias,
-									batch_norm=batch_norm,
-									from_logits=from_logits,
-									verbose=0,select_config=select_config)
-			learner.model[model_name] = model_train
-
-			from sklearn.metrics.pairwise import cosine_similarity
-			df_similarity = cosine_similarity(df_feature_label,df_feature_label)
-			query_vec = df_feature_label.index
-			df_similarity = pd.DataFrame(index=query_vec,columns=query_vec,data=df_similarity)
-			df1 = df_similarity
-
-			diagonal_type = 0
-			# thresh_1 = 0.5
-			thresh_1 = 0.6
-			# thresh_1 = 0.7
-			# thresh_1 = 0.85
-			df_mask_1 = (df_similarity>thresh_1).astype(np.float32)
-			if diagonal_type==1:
-				for i1 in range(feature_num1):
-					feature_id1 = feature_vec_1[i1]
-					df_mask_1.loc[feature_id1,feature_id1] = 0
-					df1.loc[feature_id1,feature_id1] = 0
-
-			df_label_query = df_label_query1.loc[:,feature_vec_1]
-			df_feature_label_query = df_feature_label.loc[feature_vec_1,:]
-			
-			df_mask_query = df_mask_1.loc[feature_vec_1,feature_vec_1]
-			query_num1 = np.sum(df_mask_query.sum())
-			num_1 = feature_num1*feature_num1
-			ratio_1 = query_num1/num_1
-
-			print('df_label_query ',df_label_query.shape)
-			print('df_feature_label_query ',df_feature_label_query.shape)
-			print('df_mask_query ',df_mask_query.shape)
-			print('ratio_1 ',ratio_1,query_num1)
-
-			print(np.max(df1),np.min(df1),np.mean(df1),np.median(df1))
-			print(np.max(df1.max()))
-
-			sample_id_train = x_train.index
-			sample_num_train = len(sample_id_train)
-
-			interval = 1000
-
-			adj = np.asarray(df_mask_query)
-			t_vec_1 = self.test_query_feature_interval_1(x=x_train,y=y_train,
-															df_feature_label=df_feature_label_query,
-															adj=adj,
-															interval=interval,
-															select_config=select_config)
-
-			x_train_2, y_train_2, x_feature_1, adj_input = t_vec_1
-			print('x_train_2, y_train_2 ',x_train_2.shape,y_train_2.shape)
-			print('x_feature_1 ',x_feature_1.shape)
-			print('adj ',adj_input.shape)
-
-			# for i1 in range(iter_num):
-			# 	start_id1 = i1*interval
-			# 	start_id2 = (i1+1)*interval
-
-			# 	feature_mtx_2 = x_train.loc[start_id1:start_id2,:] # shape: subsample_num by feature_dim
-			# 	label_mtx_2 = y_train.loc[start_id1:start_id2,:]	 # shape: subsample_num by class_num
-
-			# batch_size = 1
-			# select_config.update({'batch_size':batch_size})
-
-			field_query = ['optimizer','batch_size','lr','early_stop','save_best_only']
-			param_vec = [select_config[field_id] for field_id in field_query]
-			optimizer, batch_size, lr_1, early_stop, save_best_only = param_vec
-			for (field_id,query_value) in zip(field_query,param_vec):
-				print(field_id,query_value)
-
-			filename_save_annot_query = select_config['filename_save_annot_query2']
-			# use_default = 1
-			use_default = 0
-			interval_num = 1
-			from_logits = select_config['from_logits']
-			flag_partial = 1
-			thresh_score_binary = 0.5
-
-			flag_train=1
-			if flag_train>0:
-				interval_num = 1
-				n_epoch = 200
-				# n_epoch = 50
-				# n_epoch = 20
-				model_train = learner.train_1(x=[x_train_2,x_feature_1,adj_input],y=y_train_2,
-											feature_query=model_name,
-											interval_num=interval_num,
-											epochs=n_epoch,
-											early_stop=early_stop,
-											flag_partial=flag_partial,
-											use_default=use_default,
-											save_model_train=1,
-											filename_save_annot=filename_save_annot_query,
-											select_config=select_config)
-
-			flag_2=0
-			if flag_2>0:
-				t_vec_2 = self.test_query_feature_interval_1(x=x_test,y=y_test,
-															df_feature_label=df_feature_label_query,
-															adj=adj,
-															interval=interval,
-															select_config=select_config)
-
-				x_test_2, y_test_2, x_feature_1, adj_input = t_vec_1
-				print('x_test_2 ',x_test_2.shape)
-				print('x_feature_1 ',x_feature_1.shape)
-				print('adj ',adj_input.shape)
-
-				x_test_query = x_test_2
-				x_feature_query = x_feature_1
-				adj_query = adj_input
-				y_proba = model_train.predict([x_test_query,x_feature_query,adj_query])
-				# y_proba = np.ravel(y_proba)
-
-				# from_logits = self.from_logits
-				if from_logits==True:
-					from scipy.special import expit
-					print('use sigmoid function')
-					y_proba = expit(y_proba)
-
-				y_pred = (y_proba>thresh_score_binary).astype(np.float32)
-				print('y_pred, y_proba ',y_pred.shape,y_proba.shape)
-				print(y_pred[0:2])
-				print(y_proba[0:2])
-
 
 	## =====================================================
 	# query feature matrix
