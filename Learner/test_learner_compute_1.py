@@ -7,10 +7,6 @@ import scipy
 import scipy.io
 import sklearn
 import math
-# import scanpy as sc
-# import scanpy.external as sce
-# import anndata as ad
-# from anndata import AnnData
 
 from copy import deepcopy
 
@@ -42,7 +38,6 @@ from keras.optimizers import gradient_descent_v2, adam_v2
 from keras.utils.vis_utils import plot_model
 
 from tensorflow.keras import datasets, layers, models
-# from keras.engine.topology import Layer, InputSpec
 from tensorflow.keras.layers import Layer, InputSpec
 from tensorflow.keras.models import save_model, load_model
 from tensorflow.keras.regularizers import l1, l2
@@ -63,12 +58,6 @@ def masked_loss_function(y_true, y_pred):
 	mask_value=-1
 	mask = K.cast(K.not_equal(y_true, mask_value), K.floatx())
 	return K.binary_crossentropy(y_true * mask, y_pred * mask)
-
-# use weighted crossentropy
-# def masked_loss_function_2(y_true, y_pred, y_score):
-# 	mask_value=-1
-# 	mask = K.cast(K.not_equal(y_true, mask_value), K.floatx())
-# 	return K.binary_crossentropy(y_true * mask, y_pred * mask)
 
 # use weighted crossentropy
 def masked_loss_function_2(y_true, y_pred):
@@ -377,21 +366,6 @@ class Learner_pre1_1(object):
 				# model.add(Dropout(self.dropout,input_shape=(input_dim,))) # model_train_2_3
 				# x1 = Dropout(self.dropout,input_shape=(input_dim,))(x1)
 				x1 = Dropout(drop_rate,input_shape=(input_dim,))(x1)
-			# if i1<(query_num-1):
-			# 	# model.add(Dropout(self.dropout,input_shape=(input_dim,))) # the previous approach: model_train_2_2
-			# 	act = self.activation_1
-			# else:
-			# 	from_logits = self.from_logits
-			# 	if from_logits==False:
-			# 		act = self.activation_2
-			# 	else:
-			# 		act = 'linear'
-			# 		print('use linear function')
-			# model.add(Dense(units=dim_1,
-			# 				kernel_initializer=self.init,
-			# 				kernel_regularizer=self.kernel_regularizer,
-			# 				activation=act,
-			# 				name='dense_%d'%(i1)))
 			act = self.activation_1
 			x1 = Dense(units=dim_1,
 						kernel_initializer=self.init,
@@ -470,10 +444,7 @@ class Learner_pre1_1(object):
 	def _build_link_pre2(self,input_dim=-1,input_dim_2=-1,dim_vec=[],dim_vec_2=[],feature_num1=-1,feature_num2=-1,
 							n_gat_layers=2,n_attn_heads=4,drop_rate=0.5,drop_rate_2=0.1,l1_reg=0,l2_reg=0,l2_reg_bias=0,
 							batch_norm=1,layer_norm=0,batch_size=1,from_logits=-1,verbose=0,select_config={}):
-
-		# from test_layers_1 import GraphAttention
-		# from test_layers_1 import GraphAttention_2
-
+								
 		if len(dim_vec)==0:
 			dim_vec = self.dim_vec
 		
@@ -554,10 +525,7 @@ class Learner_pre1_1(object):
 		h2 = x2  # shape: (batch_size,feature_num1,feature_dim_query)
 		h2 = tf.transpose(h2,perm=[0,2,1]) # shape: (batch_size,feature_dim_query,feature_num1)
 		y = tf.matmul(x1,h2)	# shape: (batch_size,feature_num2,feature_num1)
-		# feature_num_query1 = int(feature_num2*feature_num1)
-		# output_dim_query = feature_num_query1
-		# y = tf.reshape(y,[-1,feature_num_query1])
-
+								
 		if from_logits in [-1]:
 			from_logits = self.from_logits
 		if from_logits==False:
