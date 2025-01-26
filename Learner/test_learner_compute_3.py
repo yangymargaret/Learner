@@ -668,8 +668,6 @@ class _Base2_learner_1(BaseEstimator):
 
 		column_idvec = ['motif_id','peak_id','gene_id']
 		column_id3, column_id2, column_id1 = column_idvec[0:3]
-		# feature_type_vec = ['peak_motif','peak_tf']
-		# feature_type_vec = ['peak_tf','peak_motif']
 		feature_type_vec = ['peak_motif','peak_tf','peak_seq']
 
 		file_save_path_1 = output_dir
