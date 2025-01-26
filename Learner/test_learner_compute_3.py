@@ -362,12 +362,7 @@ class _Base2_learner_1(BaseEstimator):
 			n_epoch, early_stop, dim_vec, dropout, batch_norm, layer_norm, optimizer, save_best_only, l1_reg, l2_reg, flag_partial, model_type_combine = list_value
 
 			print('input_dim_vec ',input_dim_vec)
-			# print('dim_vec ',dim_vec)
-			# print('drop_rate ',dropout)
-			# print('optimizer ',optimizer)
-			# print('save_best_only ',save_best_only)
-			# print('l1_reg ',l1_reg)
-			# print('l2_reg ',l2_reg)
+
 			for field_id in field_query:
 				query_value = select_config[field_id]
 				print(field_id,query_value)
@@ -898,12 +893,7 @@ class _Base2_learner_1(BaseEstimator):
 			print('error! ')
 			df_feature_query2 = []
 
-		# print('df_feature_query1, df_feature_query2 ',df_feature_query1.shape,df_feature_query2.shape)
-		# print('data preview: ')
-		# print(df_feature_query1[0:2])
-		# print(df_feature_query2[0:2])
 		feature_vec_pre1 = motif_query_vec
-
 		feature_vec_1 = feature_vec_pre1
 
 		# ----------------------------------------------
@@ -927,9 +917,6 @@ class _Base2_learner_1(BaseEstimator):
 			print(df_feature_label_1[0:2])
 
 			self.df_feature_label_1 = df_feature_label_1
-
-		# file_path_save_link = '%s/file_link'%(output_dir)
-		# select_config.update({'file_path_save_link':file_path_save_link})
 
 		# ----------------------------------------------
 		# query features
@@ -966,275 +953,10 @@ class _Base2_learner_1(BaseEstimator):
 		return data_vec, select_config
 
 	## ====================================================
-	# model training
-	# def train_pre1_recompute_1_unit1(self,data_vec=[],input_dim_vec=[],feature_vec_1=[],feature_vec_2=[],save_mode=1,verbose=0,select_config={}):
-
-	# 	# query configuration parameters
-	# 	data_file_type = select_config['data_file_type']
-	# 	celltype_query = select_config['cell_type_id']
-	# 	input_dir = select_config['input_dir']
-	# 	output_dir = select_config['output_dir']
-	# 	model_type_id1 = 'LogisticRegression'
-	# 	select_config.update({'model_type_id1':model_type_id1})
-
-	# 	initializer='glorot_uniform'
-	# 	activation='relu'
-	# 	# lr_1 = 0.1
-	# 	lr_1 = 0.001
-	# 	# batch_size=32
-	# 	batch_size=128
-	# 	# dropout = 0.1
-	# 	# dropout = 0.2
-
-	# 	# dim_vec = [50,1]
-	# 	# dim_vec = [25,1]
-	# 	# dim_vec = [10,1]
-	# 	# dim_vec = [1]
-	# 	dim_vec = select_config['dim_vec']
-	# 	if dim_vec[-1]==1:
-	# 		feature_num_1 = len(feature_vec_1)
-	# 		dim_vec[-1] = feature_num_1
-	# 	drop_rate = select_config['drop_rate']
-	# 	optimizer = select_config['optimizer']
-	# 	save_best_only = select_config['save_best_only']
-
-	# 	dim1 = dim_vec[0]
-	# 	if (len(dim_vec)==1) and (dim1==1):
-	# 		early_stop = 0
-	# 		# n_epoch = 20
-	# 		# early_stop = 1
-	# 		n_epoch = 50
-	# 	else:
-	# 		early_stop = 0
-	# 		# early_stop = 1
-	# 		n_epoch = 100
-	# 	select_config.update({'n_epoch':n_epoch,'early_stop':early_stop})
-	# 	print('dim_vec ',dim_vec)
-	# 	print('drop_rate ',drop_rate)
-	# 	print('save_best_only ',save_best_only)
-	# 	print('optimizer ',optimizer)
-
-	# 	if optimizer in ['adam']:
-	# 		lr_1 = 0.001
-	# 	elif optimizer in ['sgd']:
-	# 		lr_1 = 0.1
-
-	# 	l1_reg = select_config['l1_reg']
-	# 	l2_reg = select_config['l2_reg']
-	# 	run_id1 = select_config['run_id']
-
-	# 	# l1_reg=0.05
-	# 	# l2_reg=0.05
-	# 	mask_type = 1
-	# 	flag_partial = 1
-	# 	model_type_combine = 1
-	# 	select_config.update({'mask_type':mask_type,'flag_partial':flag_partial,
-	# 							'model_type_combine':model_type_combine})
-
-	# 	# learner_pre1 = Learner_pre1_1(input_dim1=input_dim1,
-	# 	# 								input_dim2=input_dim2,
-	# 	# 								dim_vec=dim_vec,
-	# 	# 								feature_vec=feature_vec_1,
-	# 	# 								activation_1=activation_1,
-	# 	# 								activation_2=activation_2,
-	# 	# 								initializer=initializer,
-	# 	# 								lr=lr_1,
-	# 	# 								batch_size=batch_size,
-	# 	# 								leaky_relu_slope=0.2,
-	# 	# 								dropout=drop_rate,
-	# 	# 								n_epoch=n_epoch,
-	# 	# 								early_stop=early_stop,
-	# 	# 								save_best_only=save_best_only,
-	# 	# 								optimizer=optimizer,
-	# 	# 								l1_reg=l1_reg,
-	# 	# 								l2_reg=l2_reg,
-	# 	# 								flag_partial=flag_partial,
-	# 	# 								model_type_combine=model_type_combine,
-	# 	# 								select_config=select_config)
-
-	# 	method_type_feature_link = select_config['method_type_feature_link']
-
-	# 	# ----------------------------------------------
-	# 	# build model
-	# 	# input_dim_vec = [input_dim1,input_dim2]
-	# 	learner_pre1 = self.test_query_learn_pre1(feature_vec_1=feature_vec_1,input_dim_vec=input_dim_vec,lr=lr_1,batch_size=batch_size,select_config=select_config)
-
-	# 	# train_mode = 0
-	# 	# train_mode = 1
-	# 	train_mode = select_config['train_mode']
-	# 	overwrite = False
-	# 	column_1 = 'maxiter'
-	# 	if (column_1 in select_config) and (overwrite==False):
-	# 		maxiter_num = select_config[column_1]
-	# 	else:
-	# 		# maxiter_num = 10
-	# 		# maxiter_num = 50
-	# 		maxiter_num = 1
-	# 		select_config.update({'maxiter':maxiter_num})
-		
-	# 	feature_type_id = select_config['feature_type_id']
-	# 	model_type_feature = 0
-		
-	# 	df_score = []
-	# 	if train_mode in [1,2]:
-	# 		feature_vec_query1 = feature_vec_1
-	# 		t_vec_1 = self.test_query_label_1(feature_vec_1=feature_vec_query1,
-	# 											feature_vec_2=feature_vec_2,
-	# 											method_type=method_type_feature_link,
-	# 											select_config=select_config)
-
-	# 		df_label_query1, df_label_query2, feature_vec_group1, feature_vec_group2 = t_vec_1
-	# 		print('df_label_query1 ',df_label_query1.shape)
-
-	# 		# output_file_path = output_dir
-	# 		# filename_save_annot_2 = '1'
-	# 		# output_filename = '%s/test_pseudo_label_num.%s.%s.txt'%(output_file_path,method_type_feature_link,filename_save_annot_2)
-	# 		# df_label_query2.to_csv(output_filename,sep='\t',float_format='%d')
-
-	# 		# data_vec = [df_feature_query1, df_feature_query2, df_label_query1]
-	# 		data_vec_query1 = data_vec + [df_label_query1]
-
-	# 		input_filename = '%s/bed_file/test_query_signal_2.txt'%(input_dir)
-	# 		df_signal = pd.read_csv(input_filename,index_col=0,sep='\t')
-	# 		df_signal = df_signal.fillna(0)
-	# 		self.df_signal = df_signal
-
-	# 		print('df_signal ',df_signal.shape)
-	# 		print('data preview ')
-	# 		print(df_signal[0:2])
-	# 		print('input_filename ',input_filename)
-
-	# 		column_vec = df_signal.columns
-	# 		t_vec_1 = column_vec.str.split('.')
-	# 		motif_vec_2 = t_vec_1.str.get(0)
-	# 		motif_vec_1 = t_vec_1.str.get(1)
-	# 		df_signal_annot = pd.DataFrame.from_dict({'motif_id':motif_vec_1,'motif_id2':motif_vec_2,
-	# 													'feature_id':column_vec})
-
-	# 		df_signal_annot.index = np.asarray(df_signal_annot['motif_id2'])
-	# 		self.df_signal_annot = df_signal_annot
-	# 		print('df_signal_annot ',df_signal_annot.shape)
-	# 		print(df_signal_annot[0:2])
-
-	# 		output_file_path = '%s/folder_save_2/folder1_2_5'%(output_dir)	# thresh_vec = [500,1000]
-	# 		if os.path.exists(output_file_path)==False:
-	# 			print('the directory does not exist ',output_file_path)
-	# 			os.makedirs(output_file_path,exist_ok=True)
-			
-	# 		model_type = 1
-	# 		flag_score = 1
-	# 		if flag_score>0:
-	# 			n_layer_1 = len(dim_vec)
-	# 			dim1 = dim_vec[0]
-	# 			# n_epoch = 20
-	# 			# filename_save_annot_2 = '%d_%d'%(early_stop,n_epoch)
-	# 			# filename_save_annot_query = '%d_%d_%d'%(n_layer_1,dim1,batch_size)
-	# 			t_vec_query = [str(dim_1) for dim_1 in dim_vec[0:-1]]
-	# 			dim_query = '_'.join(t_vec_query)
-	# 			str1 = '%d_%s_%d'%(n_layer_1,dim_query,batch_size)
-	# 			str2 = '%s_%s_%d_%d'%(optimizer,str(drop_rate),early_stop,n_epoch)
-	# 			str3 = '%s_%s.%d_%d'%(str(l1_reg),str(l2_reg),run_id1,feature_type_id)
-	# 			str5 = '%d.%s'%(model_type_feature,method_type_feature_link)	# add method type annotation
-	# 			filename_save_annot_query = '%s_%s.%s.%s.%s'%(str1,str2,str3,str5,celltype_query)
-	# 			feature_query_num1 = len(feature_vec_1)
-	# 			filename_save_annot_query1 = filename_save_annot_query
-	# 			if feature_query_num1==1:
-	# 				feature_query = feature_vec_1[0]
-	# 				filename_save_annot_query = '%s.%s'%(filename_save_annot_query,feature_query)
-
-	# 			# filename_save_annot_2 = '%s_%s_%d_%d'%(optimizer,str(drop_rate),early_stop,n_epoch)
-	# 			# # filename_save_annot_query = '%d_%d_%d_%s'%(n_layer_1,dim1,batch_size,filename_save_annot_2)
-	# 			# filename_save_annot_query = '%d_%s_%d_%s'%(n_layer_1,dim_query,batch_size,filename_save_annot_2)
-	# 			# # filename_save_annot_query = '%s.%s_%s.%d'%(filename_save_annot_query,str(l1_reg),str(l2_reg),feature_type_id)
-	# 			# filename_save_annot_query = '%s.%s_%s.%d_%d'%(filename_save_annot_query,str(l1_reg),str(l2_reg),run_id1,feature_type_id)
-	# 			# # filename_save_annot_query = '%s.%d'%(filename_save_annot_query,model_type_feature)
-	# 			# filename_save_annot_query = '%s.%d.%s'%(filename_save_annot_query,model_type_feature,method_type_feature_link) # add method type annotation
-	# 			# filename_save_annot_query = '%s.%s'%(filename_save_annot_query,celltype_query)
-	# 			if maxiter_num>1:
-	# 				filename_save_annot_query = '%s.%d'%(filename_save_annot_query,maxiter_num)
-
-	# 			filename_save_score = '%s/test_query_df_score.beta.%d.%s.%s.group2.txt'%(output_file_path,model_type,filename_save_annot_query,data_file_type)
-	# 			select_config.update({'filename_save_score':filename_save_score})
-
-	# 			filename_save_score_1 = '%s/test_query_df_score.beta.%d.%s.%s.group2.txt'%(output_file_path,model_type,filename_save_annot_query1,data_file_type)
-	# 			select_config.update({'filename_save_score_1':filename_save_score_1})
-
-	# 		learner_pre1, df_score = self.train_pre2(data=data_vec_query1,learner=learner_pre1,
-	# 													feature_vec_1=feature_vec_1,
-	# 													feature_vec_2=feature_vec_2,
-	# 													dim_vec=dim_vec,
-	# 													n_epoch=n_epoch,
-	# 													flag_score=flag_score,
-	# 													save_mode=1,
-	# 													verbose=0,select_config=select_config)
-
-	# 	if train_mode in [0,2]:
-	# 		# input_dir = select_config['input_dir']
-	# 		input_filename = '%s/bed_file/test_query_signal_2.txt'%(input_dir)
-	# 		df_signal = pd.read_csv(input_filename,index_col=0,sep='\t')
-	# 		print('df_signal ',df_signal.shape)
-	# 		print('data preview ')
-	# 		print(df_signal[0:2])
-
-	# 		# data_vec = [df_feature_query1, df_feature_query2]
-	# 		# output_file_path = '%s/folder_save_2/folder1'%(output_dir)
-	# 		# output_file_path = '%s/folder_save_2/folder1_1'%(output_dir)	# thresh_vec = [500,1500]
-	# 		# output_file_path = '%s/folder_save_2/folder1_2'%(output_dir)	# thresh_vec = [500,1000]
-	# 		# output_file_path = '%s/folder_save_2/folder1_3'%(output_dir)	# thresh_vec = [500,1000]
-	# 		output_file_path = '%s/folder_save_2/folder1_2_2'%(output_dir)	# thresh_vec = [500,1000]
-			
-	# 		if os.path.exists(output_file_path)==False:
-	# 			print('the directory does not exist ',output_file_path)
-	# 			os.makedirs(output_file_path,exist_ok=True)
-
-	# 		# model_type = 0
-	# 		model_type = 1
-	# 		if model_type==0:
-	# 			output_filename = '%s/test_query_df_score.beta.%s.%s.1.txt'%(output_file_path,model_type_id1,data_file_type)
-	# 		else:
-	# 			n_layer_1 = len(dim_vec)
-	# 			dim1 = dim_vec[0]
-	# 			# filename_save_annot_2 = '%d_%d'%(early_stop,n_epoch)
-	# 			# filename_save_annot_query = '%d_%d_%d'%(n_layer_1,dim1,batch_size)
-	# 			t_vec_query = [str(dim_1) for dim_1 in dim_vec[0:-1]]
-	# 			dim_query = '_'.join(t_vec_query)
-				
-	# 			filename_save_annot_2 = '%s_%s_%d_%d'%(optimizer,str(drop_rate),early_stop,n_epoch)
-	# 			# filename_save_annot_query = '%d_%d_%d_%s'%(n_layer_1,dim1,batch_size,filename_save_annot_2)
-	# 			filename_save_annot_query = '%d_%s_%d_%s'%(n_layer_1,dim_query,batch_size,filename_save_annot_2)
-	# 			# filename_save_annot_query = '%s.%s_%s.%d'%(filename_save_annot_query,str(l1_reg),str(l2_reg),feature_type_id)
-	# 			filename_save_annot_query = '%s.%s_%s.%d_%d'%(filename_save_annot_query,str(l1_reg),str(l2_reg),run_id1,feature_type_id)
-	# 			# filename_save_annot_query = '%s.%d'%(filename_save_annot_query,model_type_feature)
-	# 			filename_save_annot_query = '%s.%d.%s'%(filename_save_annot_query,model_type_feature,method_type_feature_link) # add method type annotation
-	# 			filename_save_annot_query = '%s.%s'%(filename_save_annot_query,celltype_query)
-	# 			if maxiter_num>1:
-	# 				filename_save_annot_query = '%s.%d'%(filename_save_annot_query,maxiter_num)
-
-	# 			# output_filename = '%s/test_query_df_score.beta.%d.%s.%s.1.txt'%(output_file_path,model_type,filename_save_annot_query,data_file_type)
-	# 			# output_filename = '%s/test_query_df_score.beta.%d.%s.%s.1_1.txt'%(output_file_path,model_type,filename_save_annot_query,data_file_type)
-	# 			output_filename = '%s/test_query_df_score.beta.%d.%s.%s.1_2.txt'%(output_file_path,model_type,filename_save_annot_query,data_file_type)
-	# 			# output_filename = '%s/test_query_df_score.beta.%d.%s.%s.2.txt'%(output_file_path,model_type,filename_save_annot_query,data_file_type)
-	# 			# output_filename = '%s/test_query_df_score.beta.%d.%s.%s.2_2.txt'%(output_file_path,model_type,filename_save_annot_query,data_file_type)
-
-	# 		self.test_compare_1(data=data_vec,df_signal=df_signal,
-	# 							learner=learner_pre1,
-	# 							feature_vec_1=feature_vec_1,
-	# 							feature_vec_2=feature_vec_2,
-	# 							model_type=model_type,
-	# 							maxiter=maxiter_num,
-	# 							save_mode=1,
-	# 							output_filename=output_filename,
-	# 							verbose=0,select_config=select_config)
-
-	# 	return df_score, select_config
-
-	## ====================================================
 	# query signal
 	def test_query_signal_1(self,retrieve_mode=0,select_config={}):
 
 		# query TF with ChIP-seq data
-		# data_path_1 = '/data/peer/yangy4/data1/data_pre2/data1_2/peak2/data_2'
-		# input_filename = '%s/data1/bed_file/test_query_signal_2.annot1.txt'%(data_path_1)
 		data_path_1 = select_config['data_path_save_1']
 		input_filename = '%s/folder_save_1/bed_file/test_query_signal_2.annot1.txt'%(data_path_1)
 
@@ -1256,49 +978,22 @@ class _Base2_learner_1(BaseEstimator):
 		else:
 			return df_signal_annot, df_signal, feature_vec_1
 
-	## ====================================================
-	# query file path
+	# ====================================================
+	query file path
 	def test_query_save_path_1(self,file_path_save_link='',filename_prefix='',filename_annot='',select_config={}):
 
-		# query directory name and filename
-		data_file_type = select_config['data_file_type']
-		celltype_query = select_config['cell_type_id']
-		print('celltype ',celltype_query)
 
 		data_path_1 = select_config['data_path_save_1']
 		method_type_feature_link = select_config['method_type_feature_link']
+		filename_annot_link_query = filename_annot
 
-		data_path_2 = '%s/folder_save_1/data_2'%(data_path_1)
-		filename_annot_link_2 = filename_annot
-
-		if method_type_feature_link in ['Unify']:
-			# file_path_save_link = '%s/folder_1_1_1/file_link_6'%(data_path_1)
-			if file_path_save_link=='':
-				file_path_save_link = '%s/folder_1_1_1/file_link_6'%(data_path_2)
-			if filename_prefix=='':
-				filename_prefix = 'test_query_binding.2'
-			if filename_annot=='':
-				filename_annot_link_2 = '1.pred2'
-		else:
-			celltype_vec = ['B_cell','T_cell','monocyte','macrophage']
-			list1 = ['2','2_2','2_3','2_5']
-			dict_annot1 = dict(zip(celltype_vec,list1))
-			file_annot = dict_annot1[celltype_query]
-			if file_path_save_link=='':
-				# file_path_save_link = '%s/folder_1_1_%s/file_link'%(data_path_1,file_annot)
-				file_path_save_link = '%s/folder_1_1_%s/file_link'%(data_path_2,file_annot)
-			if filename_prefix=='':
-				filename_prefix = 'test_query_train'
-			if filename_annot=='':
-				filename_annot_link_2 = '%s.0.1.pred2'%(data_file_type)
-		
 		select_config.update({'file_path_save_link':file_path_save_link,
 								'filename_prefix':filename_prefix,
-								'filename_annot_link_2':filename_annot_link_2})
+								'filename_annot_link_2':filename_annot_link_query})
 
 		return select_config
 
-	## ====================================================
+	# ====================================================
 	# query model path
 	def test_query_save_path_2(self,feature_type_id,model_type_feature,run_id,dropout,n_stack,n_epoch,flag_combine,select_config={}):
 
@@ -1306,63 +1001,13 @@ class _Base2_learner_1(BaseEstimator):
 		flag_combine_query = flag_combine
 		filename_save_annot = '%d_%s_%d_%d_%d'%(run_id,str(dropout),n_stack,n_epoch,flag_combine_query)
 
-		if model_type_feature in [0]:
-			model_path_1 = '%s/model_train_2_5_%d'%(output_dir,feature_type_id)
-
-			# sae.autoencoders.save_weights('weights_%s.h5' % (filename_save_annot))
-			save_filename = '%s/weights_%s.h5' % (model_path_1,filename_save_annot)
-		else:
-			model_path_1 = '%s/model_train_2_5_%d_phenograph'%(output_dir,feature_type_id)
-			save_filename = ''
-
+		model_path_1 = '%s/model_train_%d'%(output_dir,feature_type_id)
+		save_filename = '%s/weights_%s.h5' % (model_path_1,filename_save_annot)
 		select_config.update({'model_path_save_1':model_path_1,
 								'file_save_model':save_filename,
 								'filename_save_annot_train':filename_save_annot})
 
 		return select_config
-
-	## ====================================================
-	# query model path
-	def test_query_save_path_3(self,field_id='model_path_save',l1_reg=-1,l2_reg=-1,output_file_path='',select_config={}):
-
-		flag_query1 = 1
-		if flag_query1>0:
-			celltype_query = select_config['cell_type_id']
-			method_type_feature_link = select_config['method_type_feature_link']
-			feature_type_id = select_config['feature_type_id']
-			if l1_reg<0:
-				l1_reg = select_config['l1_reg']
-			if l2_reg<0:
-				l2_reg = select_config['l2_reg']
-			run_id1 = select_config['run_id']
-			if output_file_path=='':
-				# output_dir = select_config['output_dir']
-				output_dir_2 = select_config['output_dir_2']
-				# output_file_path = '%s/file_link'%(output_dir_2)
-				output_file_path = output_dir_2
-			if os.path.exists(output_file_path)==False:
-				print('the directory does not exist ',output_file_path)
-				os.makedirs(output_file_path,exist_ok=True)
-
-			# model_path_1 = '%s/model_train_2'%(output_dir)
-			annot_str = '%s_%s_%d_%d'%(str(l1_reg),str(l2_reg),run_id1,feature_type_id)
-			annot_str = '%s_%s'%(annot_str,method_type_feature_link.lower()) # add the method type annotation
-			annot_str = '%s_%s'%(annot_str,celltype_query)
-			
-			flag_feature = select_config['flag_feature']
-			model_type_feature = select_config['model_type_feature']
-			# model_path_1 = '%s/model_train_2_3_%s_%s_%d'%(output_dir,str(l1_reg),str(l2_reg),feature_type_id)
-			if flag_feature in [1]:
-				model_path_1 = '%s/model_train_2_3_%s'%(output_file_path,annot_str) # use SVD to compute feature representation;
-			else:
-				model_path_1 = '%s/model_train_2_5_%s'%(output_file_path,annot_str) # use autoencoder to compute feature representation;
-				
-			if os.path.exists(model_path_1)==False:
-				print('the directory does not exist ',model_path_1)
-				os.makedirs(model_path_1,exist_ok=True)
-			select_config.update({field_id:model_path_1})
-
-			return select_config
 
 	## ====================================================
 	# model configuration
@@ -1381,22 +1026,6 @@ class _Base2_learner_1(BaseEstimator):
 	# query configuration parameters
 	def test_query_config_train_2(self,dim_vec=[],optimizer='sgd',initializer='glorot_uniform',activation='relu',l1_reg=-1,l2_reg=-1,dropout=-1,n_epoch=-1,batch_size=128,early_stop=-1,save_best_only=False,min_delta=-1,patience=-1,model_type_train=0,use_default=1,save_mode=1,select_config={}):
 
-		# model_type_id1 = 'LogisticRegression'
-		# select_config.update({'model_type_id1':model_type_id1})
-
-		# initializer='glorot_uniform'
-		# activation='relu'
-		# lr_1 = 0.1
-		# lr_1 = 0.001
-		# batch_size=32
-		# batch_size=128
-		# dropout = 0.1
-		# dropout = 0.2
-
-		# dim_vec = [50,1]
-		# dim_vec = [25,1]
-		# dim_vec = [10,1]
-		# dim_vec = [1]
 		if len(dim_vec)==0:
 			dim_vec = select_config['dim_vec']
 
@@ -1719,9 +1348,6 @@ class _Base2_learner_1(BaseEstimator):
 
 		# model training
 		print('model training')
-		# maxiter_num = 10
-		# maxiter_num = 3
-		# maxiter_num = 1
 		maxiter_num = select_config['maxiter']
 		# select_config.update({'maxiter':maxiter_num})
 		print('maxiter_num: ',maxiter_num)
@@ -1782,10 +1408,6 @@ class _Base2_learner_1(BaseEstimator):
 			dict_file_annot = dict()
 			if type_query in [0,2]:
 				filename_save_annot_query1 = select_config['filename_save_annot_query1']
-				# feature_vec_1_ori = feature_vec_1.copy()
-				# feature_vec_1 = feature_vec_signal
-				# feature_num_ori = len(feature_vec_1_ori)
-				# print('feature_vec_1_ori ',feature_num_ori)
 				feature_vec_query1 = feature_vec_signal
 				feature_num_query1 = len(feature_vec_query1)
 				print('feature_vec_query1 ',feature_num_query1)
@@ -1795,26 +1417,12 @@ class _Base2_learner_1(BaseEstimator):
 																		verbose=0,select_config=select_config)
 
 			output_file_path_1 = data_path_save_1
-			# output_file_path_query = '%s/folder1'%(output_file_path_1)
-			# output_file_path_query = '%s/folder1_2'%(output_file_path_1)
-			# output_file_path_query = '%s/folder1_2_2'%(output_file_path_1) # rerun with the l1_reg and l2_reg parameters
-			output_file_path_query = '%s/folder1_2_2_2'%(output_file_path_1) # rerun with the l1_reg and l2_reg parameters
+			output_file_path_query = '%s/folder1'%(output_file_path_1)
 			select_config.update({'folder_save_2':output_file_path_query})
 
-			# feature_vec_1 = self.feature_vec_1
-			# feature_vec_2 = self.feature_vec_2
-			# feature_num1 = len(feature_vec_1)
-			# print('feature_vec_1 ',feature_num1)
 
 			from_logits = True
 			select_config.update({'from_logits':from_logits})
-
-			# type_query = 2
-			# type_query = flag_train_1 + flag_train_2
-			# if (flag_train_1>0) and (flag_train_2==0):
-			# 	type_query = 0
-			# elif (flag_train_1==0) and (flag_train_2>0):
-			# 	type_query = 1
 
 			group_link_id = select_config['group_link_id']
 			df_label_query1 = self.test_query_label_pre1(feature_vec_1=feature_vec_1,feature_vec_2=feature_vec_2,
@@ -1882,36 +1490,7 @@ class _Base2_learner_1(BaseEstimator):
 														output_file_path=output_file_path_query,
 														verbose=0,select_config=select_config)
 				
-				# df_score_1, df_score_2, df_score_query_2, data_vec_query2 = t_vec_1
-				# df_pred_1, df_proba_1, df_pred_2, df_proba_2, dict_proba_2 = data_vec_query2
-
 		data_path_save_1 = select_config['data_path_save_1']
-
-		# flag_query6 = 1
-		flag_query6 = 0
-		if flag_query6>0:
-			motif_query_vec = self.motif_query_vec
-			feature_vec_query = motif_query_vec
-			data_path_save_1 = select_config['data_path_save_1']
-			input_file_path_1 = '%s/data1'%(data_path_save_1)
-			filename_translation = '%s/translationTable.csv'%(input_file_path_1)
-			filename_chromvar_score = '%s/test_peak_read.pbmc.0.1.normalize.1_chromvar_scores.1.csv'%(input_file_path_1)
-
-			select_config.update({'filename_translation':filename_translation,
-									'filename_chromvar_score':filename_chromvar_score})
-
-			df_rna_meta_var = self.rna_meta_var
-			df_gene_annot_expr = df_rna_meta_var
-			print('df_gene_annot_expr ',df_gene_annot_expr.shape)
-			print('columns ',df_gene_annot_expr.columns)
-			df_query1 = self.test_chromvar_score_query_pre1(data=[],df_annot=[],df_gene_annot_expr=df_gene_annot_expr,
-															feature_vec_query=feature_vec_query,
-															flag_motif_data_load=1,
-															output_file_path='',
-															filename_prefix_save='',
-															filename_save_annot='',
-															select_config=select_config)
-			return df_query1
 
 	## ====================================================
 	# save data
@@ -1986,127 +1565,8 @@ class _Base2_learner_1(BaseEstimator):
 				print('df_query ',df_query.shape)
 				print('data preview ')
 				print(df_query[0:5])
-		# df_1, df_2 = list_query1
-		# return list_query1, list_query2
+	
 		return list_query1
-
-	## ====================================================
-	# model training
-	def train_pre1_recompute_pre2(self,beta_mode=0,select_config={}):
-
-		data_file_type = select_config['data_file_type']
-		method_type_feature_link = select_config['method_type_feature_link']
-
-		data_path_save_1 = select_config['data_path_save_1']
-
-		column_1 = 'output_dir_2'
-		if not (column_1 in select_config):
-			output_dir_2 = data_path_save_1
-			select_config.update({'output_dir_2':output_dir_2})
-		else:
-			output_dir_2 = select_config[column_1]
-
-		# model configuration
-		# query feature dimension vector
-		# select_config = self.test_query_config_train_1(select_config=select_config)
-
-		# load feature embeddings and pseudo labels
-		# data_vec_query1 = [df_feature_1, df_feature_2, df_label_query1]
-		# query input_dim_vec
-		data_vec_query1 = self.train_pre1_recompute_2_unit1(feature_vec_1=[],feature_vec_2=[],
-															flag_feature_load=0,group_link_id=0,
-															flag_train_1=1,flag_train_2=1,beta_mode=0,
-															save_mode=1,verbose=0,select_config=select_config)
-
-		df_label_query1 = data_vec_query1[-1]
-		self.df_label_query1 = df_label_query1
-
-		input_dim_vec = self.input_dim_vec
-
-		# query peak loci and TFs
-		sel_num1 = 10
-		feature_vec_1, feature_vec_2 = self.test_query_feature_vec_1(feature_vec_1=feature_vec_1,feature_vec_2=feature_vec_2,
-																		df_label=df_label_query1,
-																		sel_num=sel_num1,
-																		beta_mode=beta_mode,select_config=select_config)
-
-		self.feature_vec_1 = feature_vec_1
-		self.feature_vec_2 = feature_vec_2
-
-		# query feature matrix and class labels
-		# y_train with masked values;
-		# there is at least one pseudo-labeled sample for each TF;
-		mask_value = -1
-		x1, y1, x_train, y_train, sample_id_train_1 = self.train_pre1_unit1_1(data=data_vec_query1,
-																			feature_vec_1=feature_vec_1,
-																			feature_vec_2=feature_vec_2,
-																			mask_value=mask_value,
-																			flag_label=1,
-																			save_mode=1,verbose=0,select_config=select_config)
-
-		x1 = x1.astype(np.float32)
-		y1 = y1.astype(np.float32) # y1 with masked values
-		x_test = x1.loc[feature_vec_2,:]
-		y_test = []
-
-		print('x_test ',x_test.shape)
-		print('data preview ')
-		print(x_test[0:2])
-
-		# query the directory to save model
-		column_1 = 'output_dir_2'
-		if not (column_1 in select_config):
-			output_dir_2 = data_path_save_1
-			select_config.update({'output_dir_2':output_dir_2})
-		else:
-			output_dir_2 = select_config[column_1]
-
-		if os.path.exists(output_dir_2)==False:
-			print('the directory does not exist ',output_dir_2)
-			os.makedirs(output_dir_2,exist_ok=True)
-
-		# query configuration parameters for model training
-		optimizer = select_config['optimizer']
-		batch_size = 128
-		n_epoch = 20
-		early_stop = 0
-		dim_vec, select_config = self.test_query_config_train_2(optimizer=optimizer,
-																batch_size=batch_size,n_epoch=n_epoch,
-																early_stop=early_stop,
-																model_type_train=0,
-																use_default=0,
-																select_config=select_config)
-
-		# query configuration parameters for pseudo-labeled sample selection
-		thresh_ratio = 3
-		ratio_query = 1.5
-		thresh_num_lower_1 = 500
-		thresh_vec_1 = [thresh_ratio,ratio_query,thresh_num_lower_1]
-		ratio_vec_sel = [0.05,0.025]
-		# thresh_score_vec = [0.5,0.8,0.3,0.3]
-		thresh_score_vec = [0.5,0.8,0.3,0.1]
-		thresh_num_vec = [200,300]
-		select_config = self.test_query_config_train_3(ratio_vec_sel=ratio_vec_sel,thresh_score_vec=thresh_score_vec,thresh_num_vec=thresh_num_vec,thresh_vec_1=thresh_vec_1,select_config=select_config)
-
-		# field_query = ['batch_size','n_epoch','early_stop','lr_1']
-		field_query = ['batch_size','n_epoch','early_stop','lr']
-		list1 = [select_config[field_id] for field_id in field_query]
-		batch_size, n_epoch, early_stop, lr_1 = list1
-
-		# query model path
-		field_id_query = 'model_path_save'
-		column_1 = 'output_dir_2'
-		if not (column_1 in select_config):
-			data_path_save_1 = select_config['data_path_save_1']
-			output_dir_2 = data_path_save_1
-			select_config.update({'output_dir_2':output_dir_2})
-		else:
-			output_dir_2 = select_config[column_1]
-
-		if os.path.exists(output_dir_2)==False:
-			print('the directory does not exist ',output_dir_2)
-			os.makedirs(output_dir_2,exist_ok=True)
-		select_config = self.test_query_save_path_3(field_id=field_id_query,select_config=select_config)
 
 	# ====================================================
 	# query chromosome size
@@ -2540,7 +2000,6 @@ class _Base2_learner_1(BaseEstimator):
 			# query partial label matrix
 			dict_file_annot = {}
 			# method_type_feature_link_query = method_type_feature_link
-			# method_type_feature_link_query = 'joint_score_pre1.thresh22'
 			t_vec_1 = self.test_query_label_1(feature_vec_1=feature_vec_1,
 													feature_vec_2=feature_vec_2,
 													method_type=method_type_feature_link_query,
@@ -2678,156 +2137,6 @@ class _Base2_learner_1(BaseEstimator):
 		y_train = y_train_1.loc[id_1]
 
 		return y_train, y_train_1
-
-	## ====================================================
-	# load feature embeddings and pseudo labels
-	def train_pre1_recompute_2_unit1(self,feature_vec_1=[],feature_vec_2=[],flag_feature_load=0,group_link_id=0,flag_train_1=1,flag_train_2=1,beta_mode=0,save_mode=1,verbose=0,select_config={}):
-
-		# query feature embeddings
-		column_1 = 'data_vec'
-		dict_data_query = self.dict_data_query
-		if not (column_1 in dict_data_query):
-			data_vec, select_config = self.train_pre1_recompute_1(feature_vec_1=feature_vec_1,feature_vec_2=feature_vec_2,
-																	save_mode=1,verbose=0,select_config=select_config)
-			self.dict_data_query.update({'data_vec':data_vec})
-		else:
-			data_vec = self.dict_data_query[column_1]
-		
-		motif_query_vec = self.motif_query_vec
-		df_label_query1 = self.test_query_label_pre1(feature_vec_1=[],feature_vec_2=[],flag_feature_load=0,group_link_id=0,beta_mode=0,save_mode=1,verbose=0,select_config=select_config)
-		data_vec_query1 = data_vec + [df_label_query1]
-
-		feature_type_num = len(data_vec)
-		input_dim_vec = [df_query.shape[1] for df_query in data_vec]
-		if feature_type_num==1:
-			input_dim2 = 0
-			input_dim_vec = input_dim_vec + [input_dim2]
-		self.input_dim_vec = input_dim_vec
-
-		return data_vec_query1
-
-	## ====================================================
-	# model training
-	# train model for each TF
-	def train_pre1_recompute_2_unit2(self,data=[],learner=None,feature_vec_1=[],feature_vec_2=[],input_dim_vec=[],n_epoch=20,batch_size=128,early_stop=0,save_best_only=False,mask_value=-1,flag_train_1=1,flag_mask=1,flag_select_1=1,flag_select_2=1,flag_score=0,beta_mode=0,interval_train=50,parallel=-1,save_mode=1,output_file_path='',verbose=0,select_config={}):
-
-		# query configuration parameters for model training
-		optimizer = select_config['optimizer']
-		dim_vec, select_config = self.test_query_config_train_2(optimizer=optimizer,
-																n_epoch=n_epoch,
-																batch_size=batch_size,
-																early_stop=early_stop,
-																save_best_only=save_best_only,
-																model_type_train=0,
-																use_default=0,
-																select_config=select_config)
-
-		mask_type = 1
-		# flag_mask = 1
-		flag_partial = 0
-		model_type_combine = 0
-		# maxiter_num = 10
-		# maxiter_num = 3
-		# maxiter_num = 1
-		# maxiter_num = select_config['maxiter']
-		maxiter_num = select_config['maxiter_1']
-		print('maxiter_num: ',maxiter_num)
-		model_type = 1
-		select_config.update({'mask_type':mask_type,'flag_partial':flag_partial,
-								'model_type':model_type,
-								'model_type_combine':model_type_combine})
-		select_config.update({'maxiter_num':maxiter_num})
-
-		column_1 = 'flag_pos_thresh2'
-		flag_pos_thresh2 = 1  # filter pseudo positive samples with predicted probability below threshold
-		select_config.update({column_1:flag_pos_thresh2})
-
-		column_query = 'interval_train'
-		if not (column_query in select_config):
-			# interval_train = 5
-			# interval_train = 20
-			# interval_train = 50
-			select_config.update({column_query:interval_train})
-		else:
-			interval_train = select_config[column_query]
-
-		# ------------------------------------------------------------------
-		# query configuration parameters for pseudo-labeled sample selection
-		thresh_ratio = 3
-		ratio_query = 1.5
-		thresh_num_lower_1 = 500
-		thresh_vec_1 = [thresh_ratio,ratio_query,thresh_num_lower_1]
-		ratio_vec_sel = [0.05,0.025]
-		# thresh_score_vec = [0.5,0.8,0.3,0.3]
-		thresh_score_vec = [0.5,0.8,0.3,0.1]
-		thresh_num_vec = [200,300]
-		select_config = self.test_query_config_train_3(ratio_vec_sel=ratio_vec_sel,thresh_score_vec=thresh_score_vec,thresh_num_vec=thresh_num_vec,thresh_vec_1=thresh_vec_1,select_config=select_config)
-
-		# ------------------------------------------------------------------
-		# query model path
-		field_id_query = 'model_path_save'
-		select_config = self.test_query_save_path_3(field_id=field_id_query,output_file_path=output_file_path,select_config=select_config)
-
-		# ------------------------------------------------------------------
-		# learner initiation
-		field_query = ['batch_size','n_epoch','early_stop','lr']
-		list1 = [select_config[field_id] for field_id in field_query]
-		batch_size, n_epoch, early_stop, lr = list1
-
-		if learner is None:
-			if len(input_dim_vec)==0:
-				input_dim_vec = self.input_dim_vec
-			learner_pre1 = self.test_query_learn_pre1(feature_vec_1=feature_vec_1,input_dim_vec=input_dim_vec,
-														lr=lr,batch_size=batch_size,select_config=select_config)
-		else:
-			learner_pre1 = learner
-		self.learner_pre1 = learner_pre1
-
-		# ------------------------------------------------------------------
-		# model training
-		if flag_train_1>0:
-			min_delta = 1e-3
-			patience = 5
-			select_config.update({'min_delta':min_delta,'patience':patience})
-
-			column_query = 'iter_sel'
-			iter_sel = -1
-			select_config.update({column_query:iter_sel})
-
-			# query filename annotation
-			select_config = self.test_query_file_annotation_1(type_query=0,select_config=select_config)
-
-			dim_vec = select_config['dim_vec']
-			filename_save_annot_query = select_config['filename_save_annot_query1']
-			parallel_mode = parallel
-			if parallel<0:
-				parallel_mode = select_config['parallel']
-			
-			save_interval = 1
-			dict_label_query1, dict_label_query2, df_score_query1 = learner_pre1.train_1_combine_1(x=x_train,y=y_train,
-																					x_test=x_test,y_test=y_test,
-																					feature_vec_1=feature_vec_1,
-																					feature_vec_2=feature_vec_2,
-																					model_type=model_type,
-																					dim_vec=dim_vec,
-																					maxiter_num=maxiter_num,
-																					lr=lr,batch_size=batch_size,
-																					n_epoch=n_epoch,
-																					early_stop=early_stop,
-																					include=1,
-																					mask_value=mask_value,
-																					flag_mask=flag_mask,
-																					flag_partial=flag_partial,
-																					flag_select_1=flag_select_1,
-																					flag_select_2=flag_select_2,
-																					flag_score=flag_score,
-																					train_mode=0,
-																					parallel=parallel_mode,
-																					save_interval=save_interval,
-																					save_mode=1,filename_save_annot=filename_save_annot_query,
-																					verbose=0,select_config=select_config)
-
-			return dict_label_query1, dict_label_query2, df_score_query1
 
 	## ====================================================
 	# compute sequence features
@@ -3231,17 +2540,11 @@ class _Base2_learner_1(BaseEstimator):
 
 		# ------------------------------------------------------------------
 		# query configuration parameters for model training
-		# column_query = 'optimizer_1'
-		# if column_query in select_config:
-		# 	optimizer_1 = select_config[column_query]
-		# 	select_config.update({'optimizer':optimizer_1}) # to update
-
 		select_config = self.test_query_config_train_pre1(use_default=use_default,select_config=select_config)
 
 		# maxiter_num = select_config['maxiter']
 		maxiter_num = select_config['maxiter_1']
 		print('maxiter_num ',maxiter_num)
-		# return
 
 		# ------------------------------------------------------------------
 		# query model path
@@ -3628,17 +2931,9 @@ class _Base2_learner_1(BaseEstimator):
 				# query input features and target values
 				# x1 = df_feature_2.loc[sample_id_query,:]	# peak features
 				x2 = df_feature_1.loc[feature_vec_1,:]	# TF features
-
-				# df_label_query = df_label.loc[sample_id_query,:]
-				# y1 = np.ravel(df_label_query)	# the pseudo labels
-				# y1 = df_label_query
 				x1 = x_train_2.loc[sample_id_query,:]	# peak features
 				y1 = y_train_2.loc[sample_id_query,:]	# pseudo labels
-				# print('x1, y1 ',x1.shape,y1.shape,iter_id2,iter_id1)
-
-				# x1 = np.reshape(x1,[batch_size,x1.shape[0],-1])
-				# x2 = np.reshape(x2,[batch_size,x2.shape[0],-1])
-
+				
 				list_feature_2.append(x1)
 				list_label_2.append(y1)
 
@@ -3894,12 +3189,6 @@ class _Base2_learner_1(BaseEstimator):
 															type_query_2=0,
 															save_mode=1,verbose=0,select_config=select_config)
 
-					# column_1 = 'df_signal'
-					# column_2 = 'df_signal_annot'
-					# # column_query = 'feature_vec_signal'
-					# df_signal = self.dict_data_query[column_1]
-					# df_signal_annot = self.dict_data_query[column_2]
-
 					data_file_type = select_config['data_file_type']
 					column_query = 'filename_save_annot_query2'
 					filename_save_annot_query2 = select_config[column_query]
@@ -4004,7 +3293,7 @@ class _Base2_learner_1(BaseEstimator):
 
 						return df_score_query_pre2
 
-	## ====================================================
+	# ====================================================
 	# prediction performance
 	def test_query_score_unit1(self,data=[],feature_vec_1=[],feature_vec_2=[],df_signal=[],df_signal_annot=[],model_train=None,input_filename='',thresh_score_binary=0.5,batch_size=1,flag_load=1,flag_score=1,save_mode=1,output_file_path='',output_filename='',filename_prefix_save='',filename_save_annot='',verbose=0,select_config={}):
 
@@ -4477,8 +3766,14 @@ class _Base2_learner_1(BaseEstimator):
 			df_score_query, df_proba, df_pred = self.test_query_score_unit1(data=data,feature_vec_1=feature_vec_1,feature_vec_2=feature_vec_2,
 																			df_signal=df_signal,
 																			df_signal_annot=df_signal_annot,
-																			model_train=model_train,input_filename='',thresh_score_binary=0.5,batch_size=1,flag_load=0,flag_score=1,save_mode=1,output_file_path='',output_filename='',filename_prefix_save='',filename_save_annot='',verbose=0,select_config=select_config)
-
+																			model_train=model_train,
+																			input_filename='',
+																			thresh_score_binary=0.5,
+																			batch_size=1,
+																			flag_load=0,
+																			flag_score=1,
+																			save_mode=1,output_file_path='',output_filename='',filename_prefix_save='',filename_save_annot='',
+																			verbose=0,select_config=select_config)
 			data_vec_query1.append([df_score_query, df_proba, df_pred])
 
 		flag_query2 = 1
@@ -4689,14 +3984,7 @@ class _Base2_learner_1(BaseEstimator):
 																		'GlorotUniform':tf.keras.initializers.GlorotUniform,
 																		'Zeros':tf.keras.initializers.Zeros,
 																		'L2':tf.keras.regularizers.L2(l2=l2_reg)})
-					elif function_type==2:
-						model = load_model(save_filename,custom_objects={'masked_loss_function_pre2':masked_loss_function_pre2,
-																		'GlorotUniform':tf.keras.initializers.GlorotUniform,
-																		'Zeros':tf.keras.initializers.Zeros,
-																		'L2':tf.keras.regularizers.L2(l2=l2_reg)})
-					elif function_type==3:
-						model = load_model(save_filename,custom_objects={'_weighted_binary_crossentropy':_weighted_binary_crossentropy,
-																			'masked_loss_function_recompute':masked_loss_function_recompute})
+
 		except Exception as error:
 			print('error! ',error)
 			model = None
@@ -4720,40 +4008,6 @@ class _Base2_learner_1(BaseEstimator):
 		select_config.update({'save_filename_%s'%(model_name):save_filename})
 		print('save_filename ',save_filename)
 		return save_filename
-
-	## ====================================================
-	# query feature matrix and pseudo labels
-	def test_query_load_unit2(self,df_feature_1=[],df_feature_2=[],df_label=[],feature_vec_1=[],adj=[],sample_id_query=[],start_id1=-1,start_id2=-1,diagonal_type=0,link_type=0,verbose=0,select_config={}):
-
-		if len(sample_id_query)==0:
-			sample_id_train = df_label.index
-			sample_id_query = sample_id_train[start_id1:start_id2]
-
-		# links between peak loci and the given TFs
-		df_label_query = df_label.loc[sample_id_query,feature_vec_1]
-		df_mask_query = (df_label_query>0).astype(int)
-
-		feature_vec_query2 = sample_id_query
-		feature_combine = pd.Index(feature_vec_query2).union(feature_vec_1,sort=False)
-		adj_query = pd.DataFrame(index=feature_combine,columns=feature_combine,data=0,dtype=np.float32)
-
-		adj_query.loc[sample_id_query,feature_vec_1] = df_mask_query
-		adj_query.loc[feature_vec_1,sample_id_query] = df_mask_query.T
-		# if link_type==0:
-		# 	adj_query.loc[feature_vec_1,feature_vec_1] = adj  # include the connections between TFs
-
-		if diagonal_type==0:
-			feature_num = len(feature_combine)
-			for i2 in range(feature_num):
-				feature_id = feature_combine[i2]
-				adj_query.loc[feature_id,feature_id] = 1
-
-		x1 = df_feature_2.loc[sample_id_query,:]	# peak features
-		x2 = df_feature_1.loc[feature_vec_1,:]		# TF features
-		# y1 = np.ravel(df_label_query)	# the pseudo labels
-		y1 = df_label_query
-
-		return [x1,x2,adj_query,y1]
 
 	## ====================================================
 	# query predictions by trained model
@@ -4890,56 +4144,6 @@ class _Base2_learner_1(BaseEstimator):
 		return df_proba, df_pred
 
 	## ====================================================
-	# query pseudo labels and feature matrix
-	# query pseudo labels from previous estimation
-	def train_pre1_unit1_2(self,x=[],y=[],y_train=[],feature_vec_1=[],dict_label={},mask_value=-1,flag_compare=1,verbose=0,select_config={}):
-
-		thresh_score_binary = 0.5
-		if len(y_train)==0:
-			flag_compare = 0
-
-		dict_label_query1 = dict_label
-		x1 = x
-		y1 = y
-		sample_id1 = x1.index
-		feature_query_num1 = len(feature_vec_1)
-		y_train_pre2 = pd.DataFrame(index=sample_id1,columns=feature_vec_1,data=mask_value,dtype=np.float32)
-		
-		if len(dict_label)>0:
-			for i1 in range(feature_query_num1):
-				feature_query1 = feature_vec_1[i1]
-				y_train2 = dict_label_query1[feature_query1]
-				sample_id_train2 = y_train2.index
-				y_train_pre2.loc[sample_id_train2,feature_query1] = y_train2
-
-				if flag_compare>0:
-					y_train1 = y_train[feature_query1]
-					y_train1 = y_train1.loc[y_train1>mask_value]
-					list1 = [y_train1,y_train2]
-					for i2 in range(2):
-						y_train_query = list1[i2]
-						query_vec_1, query_vec_2 = utility_1.test_query_basic_1(y=y_train_query,thresh_score=thresh_score_binary,select_config=select_config)
-						sample_num_train,pos_num_train,neg_num_train,ratio_1,ratio_2 = query_vec_2
-						print('pos_num_train: %d, neg_num_train: %d, ratio_1: %.5f, ratio_2: %.5f'%(pos_num_train,neg_num_train,ratio_1,ratio_2),feature_query1,i1,i2)
-		else:
-			y_train_pre2 = y1  # use pseudo-labeled training samples before the selection
-				
-		# there is at least one pseudo-labeled sample for each TF;
-		x_train_2, y_train_2 = utility_1.test_query_sample_pre1(y=y_train_pre2,x=x1,
-																mask_value=mask_value,
-																select_config=select_config)
-
-		print('x_train_2, ',x_train_2.shape)
-		print('data preview: ')
-		print(x_train_2[0:2])
-
-		print('y_train_2, ',y_train_2.shape)
-		print('data preview: ')
-		print(y_train_2[0:2])
-
-		return x_train_2, y_train_2
-
-	## ====================================================
 	# model training
 	def train_pre1_recompute_2(self,feature_vec_1=[],feature_vec_2=[],flag_feature_load=0,group_link_id=0,flag_train_1=1,flag_train_2=1,beta_mode=0,save_mode=1,verbose=0,select_config={}):
 
@@ -4958,18 +4162,8 @@ class _Base2_learner_1(BaseEstimator):
 		else:
 			data_vec = self.dict_data_query[column_1]
 		motif_query_vec = self.motif_query_vec
-
-		# query signal
-		# retrieve_mode = 0
-		# df_signal_annot, feature_vec_query1 = self.test_query_signal_1(retrieve_mode=retrieve_mode,select_config=select_config)
-
-		# group_link_id = 0 # group_link_id: 0, TFs with ChIP-seq signals; 1, TFs with expressions
-
+		
 		if len(feature_vec_1)==0:
-			# if group_id2==0:
-			# 	feature_vec_1 = feature_vec_query1
-			# elif group_id2==1:
-			# 	feature_vec_1 = motif_query_vec
 			feature_vec_1 = motif_query_vec
 			group_link_id = 1
 
@@ -4984,15 +4178,6 @@ class _Base2_learner_1(BaseEstimator):
 			filename_prefix = ''
 			filename_annot_link_2 = ''
 			method_type_feature_link_query = method_type_feature_link
-			filename_save_annot_2 = '1'
-
-		# elif group_link_id in [1,2]:
-		else:
-			file_path_save_link = '/data/peer/yangy4/data1/data_pre2/data1_2/peak2/vbak2_6_7_0.1_0_0.1_0.1_0.25_0.1_0.01_3_3/train12_0_0_pre2/train1_1_1_1'
-			filename_prefix = 'test_query_train.joint_score_pre1.thresh22.phenograph.20.0.25_1.5.neighbor100'
-			# filename_annot_link_2 = 'pbmc.0.1.1_1_1_1.1'
-			filename_annot_link_2 = '%s.0.1.1_1_1_1.1'%(data_file_type)
-			method_type_feature_link_query = 'joint_score_pre1.thresh22'
 			filename_save_annot_2 = '1'
 
 		select_config = self.test_query_save_path_1(file_path_save_link=file_path_save_link,
@@ -5068,9 +4253,6 @@ class _Base2_learner_1(BaseEstimator):
 		print('beta_mode ',beta_mode)
 		if beta_mode>0:
 			sel_num1 = 10
-			# sel_num1 = 2
-			# sel_num1 = 5
-			# sel_num1 = 5
 		else:
 			sel_num1 = -1
 		query_id1, query_id2 = select_config['query_id1'], select_config['query_id2']
@@ -5170,10 +4352,6 @@ class _Base2_learner_1(BaseEstimator):
 								'model_type':model_type,
 								'model_type_combine':model_type_combine,
 								'maxiter_num':maxiter_num})
-
-		# select_config.update({'mask_type':mask_type,'flag_partial':flag_partial,
-		# 						'model_type':model_type,
-		# 						'model_type_combine':model_type_combine})
 
 		column_1 = 'flag_pos_thresh2'
 		flag_pos_thresh2 = 1  # filter pseudo positive samples with predicted probability below threshold
@@ -6145,13 +5323,6 @@ class _Base2_learner_1(BaseEstimator):
 																	input_file_path=input_file_path_query,
 																	filename_save_annot=filename_save_annot_query1,
 																	verbose=0,select_config=select_config)
-
-			# data_path_save_1 = select_config['data_path_save_1']
-			# output_file_path_1 = data_path_save_1
-			# output_file_path_query = '%s/folder1'%(output_file_path_1)
-			# output_file_path_query = '%s/folder1_2'%(output_file_path_1)
-			# output_file_path_query = '%s/folder1_2_2'%(output_file_path_1) # rerun with the l1_reg and l2_reg parameters
-			# output_file_path_query = '%s/folder1_2_2_2'%(output_file_path_1) # rerun with the l1_reg and l2_reg parameters
 			output_file_path_query = output_file_path
 
 			feature_vec_1 = self.feature_vec_1
@@ -6191,95 +5362,7 @@ class _Base2_learner_1(BaseEstimator):
 			print('data preview ')
 			print(df_proba_query[0:2])
 
-			# flag_tf_score = 0
-			# column_query = 'compute_tf_score'
-			# if column_query in select_config:
-			# 	flag_tf_score = select_config[column_query]
-
 			if flag_tf_score>0:
-				# data_path_save_1 = select_config['data_path_save_1']
-				# input_file_path_1 = '%s/data1'%(data_path_save_1)
-				# # peak_bg_num = 100
-				# peak_bg_num = 10
-				# input_filename_peak = '%s/test_peak_GC.bed'%(input_file_path_1)
-				# input_filename_bg = '%s/test_peak_read.pbmc.normalize.bg.100.1.csv'%(input_file_path_1)
-				# column_query1 = 'input_filename_peak'
-				# column_query2 = 'input_filename_bg'
-				# select_config.update({'peak_bg_num':peak_bg_num,
-				# 						column_query1:input_filename_peak,
-				# 						column_query2:input_filename_bg})
-
-				# column_query = 'filename_save_annot_query2'
-				# filename_save_annot_query2 = select_config[column_query]
-				# filename_prefix = 'tf_score_query'
-
-				# input_file_path_query = select_config['model_path_save']
-				# model_path_save = select_config['model_path_save']
-				# output_file_path_query = model_path_save
-
-				# flag_binary = 1
-				# flag_binary = 2
-				# flag_binary = 3
-				# type_binary = flag_binary
-				# df_score_deviation, df_score_query = self.test_query_tf_score_1(data=[df_proba_query],feature_vec_query=feature_vec_1,
-				# 																		flag_log=1,
-				# 																		type_binary=type_binary,
-				# 																		compare_mode=1,
-				# 																		save_mode=1,
-				# 																		output_file_path=output_file_path_query,
-				# 																		output_filename='',
-				# 																		filename_prefix=filename_prefix,
-				# 																		verbose=0,select_config=select_config)
-
-				# print('df_score_query ',df_score_query.shape)
-				# print('data preview ')
-				# print(df_score_query[0:2])
-
-				# data_path_save_1 = select_config['data_path_save_1']
-				# input_file_path_1 = '%s/data1'%(data_path_save_1)
-				# input_filename = '%s/test_peak_read.pbmc.0.1.normalize.1_chromvar_scores.1.copy1.sort2.copy2.txt'%(input_file_path_1)
-				# df_score_1 = pd.read_csv(input_filename,index_col=0,sep='\t')
-
-				# feature_vec_query1 = df_score_1.index
-				# df_score_2 = df_score_query
-				# feature_vec_query2 = df_score_2.index
-				# feature_vec_query_2 = pd.Index(feature_vec_query2).intersection(feature_vec_query1,sort=False)
-
-				# column_score_query = ['spearmanr','pearsonr','mutual_info']
-				# df_score_pre1 = df_score_1.loc[feature_vec_query_2,column_score_query]
-				# method_type_1 = 'chromvar'
-				# method_type_2 = 'method2'
-				# df_score_pre1['method_type'] = method_type_1
-				# df_score_pre1['feature_name'] = np.asarray(df_score_pre1.index)
-				# df_score_pre1 = df_score_pre1.fillna(0)
-
-				# df_score_pre2 = df_score_2.loc[feature_vec_query_2,column_score_query]
-				# df_score_pre2['method_type'] = method_type_2
-				# df_score_pre2['feature_name'] = np.asarray(df_score_pre2.index)
-				# df_score_pre2 = df_score_pre2.fillna(0)
-
-				# df_score_combine_query = pd.concat([df_score_pre1,df_score_pre2],axis=0,join='outer',ignore_index=False)
-				
-				# column_score_query = 'spearmanr'
-				# df_score_compare_1 = df_score_combine_query.pivot(index='feature_name',columns='method_type',values=column_score_query)
-				# print('df_score_compare_1 ',df_score_compare_1.shape)
-				# print(df_score_compare_1[0:5])
-				# mean_value_query = df_score_compare_1.mean(axis=0)
-				# print('mean_value ',mean_value_query)
-
-				# df_score_compare_1['difference'] = df_score_compare_1[method_type_2]-df_score_compare_1[method_type_1]
-				# df_score_compare_1 = df_score_compare_1.sort_values(by=['difference'],ascending=False)
-
-				# filename_annot_query = str(type_binary)
-				# filename_annot2 = 'score_compare_%s.%s'%(column_score_query,str(type_binary))
-				# output_filename = '%s/%s.score_combine.%s.1.txt'%(output_file_path_query,filename_prefix,filename_annot_query)
-				# df_score_combine_query.to_csv(output_filename,sep='\t')
-				# print('save data ',output_filename)
-
-				# output_filename_2 = '%s/%s.%s.1.txt'%(output_file_path_query,filename_prefix,filename_annot2)
-				# df_score_compare_1.to_csv(output_filename_2,sep='\t')
-				# print('save data ',output_filename_2)
-
 				flag_log = 1
 				# flag_log = 0
 				column_query = 'type_log'
@@ -6322,18 +5405,11 @@ class _Base2_learner_1(BaseEstimator):
 				for type_compare in [1]:
 					# type_compare: 0: compare correlation between TF score and TF expression;
 					# type_compare: 1: compare correlation between TF score and TF score based on TF ChIP-seq signals;
-
 					if type_compare in [0]:
 						df_feature = []
 					else:
 						celltype_query = 'combine'
-						# input_filename_query = '%s/tf_score_ChIP_seq_%s.score_deviation.0.5.binary.1.txt'%(input_file_path_query,celltype_query)
-						# input_filename_query = '%s/tf_score_ChIP_seq_%s.score_deviation_ori.0.5.binary.1.txt'%(input_file_path_query,celltype_query)
-						# input_filename_query = '%s/tf_score_query_combine_ChIP-seq.score_deviation_ori.0.5.binary.1.txt'%(input_file_path_query,celltype_query)
-						data_path_save_1 = select_config['data_path_save_1']
-						input_file_path_1 = data_path_save_1
-						input_file_path_query1 = '%s/file_link/folder_group_recompute_norm_31/batch_norm_0/run2_6_3_6_3_group_link_2/folder_16/folder2/model_train_2_5_0.0001_0.0001_31_5_unify_B_cell'%(input_file_path_1)
-						input_filename_query = '%s/tf_score_query_%s_ChIP-seq.score_deviation_ori.0.5.binary.1.txt'%(input_file_path_query1,celltype_query)
+						input_filename_query = select_config['filename_ChIP-seq_TF_score']
 						df_feature = pd.read_csv(input_filename_query,index_col=0,sep='\t')
 						print('df_feature ',df_feature.shape)
 						print('data preview ')
@@ -6354,88 +5430,8 @@ class _Base2_learner_1(BaseEstimator):
 																	filename_prefix=filename_prefix,
 																	verbose=0,select_config=select_config)
 
-				# flag_recompute_score = 0
-				# return [df_score_query1, df_score_query2, data_vec_query1]
-
 			if flag_recompute_score==0:
 				return [df_score_query1, df_score_query2, data_vec_query1]
-
-			# column_query1 = 'df_signal_annot'
-			# df_signal_annot = self.dict_data_query[column_query1]
-			# query_id_1 = df_score_query2.index
-
-			# column_query2 = 'ratio'
-			# ratio_query = df_signal_annot.loc[query_id_1,column_query2]
-			# if type_query in [0,2]:
-			# 	df_score_query1['aupr_ratio'] = df_score_query1['aupr']/ratio_query
-
-			# if type_query in [1,2]:
-			# 	df_score_query2['aupr_ratio'] = df_score_query1['aupr']/ratio_query
-
-			# df_proba_1, df_pred_1, df_proba_2, df_pred_2 = data_vec_query1
-			# df_proba_query = df_proba_2
-
-			# print('df_proba_query ',df_proba_query.shape)
-			# print('data preview ')
-			# print(df_proba_query[0:2])
-
-			# input_dir = select_config['input_dir']
-			# input_file_path_1 = input_dir
-			# input_filename = '%s/test_rna_df_obs.pbmc.1.txt'%(input_file_path_1)
-			# df_annot_1 = pd.read_csv(input_filename,index_col=0,sep='\t')
-			# print('df_annot_1 ',df_annot_1.shape)
-			# print('data preview ')
-			# print(df_annot_1[0:5])
-			
-			# rna_exprs = self.rna_exprs
-			# metacell_vec_query = rna_exprs.index
-			# df_annot_query1 = df_annot_1.loc[metacell_vec_query,:]
-			
-			# column_query = 'celltype'
-			# column_1 = 'celltype_ori'
-			# df_annot_query1[column_1] = df_annot_query1[column_query].copy()
-
-			# celltype_vec_query1 = ['B_cell','T_cell','monocyte']
-			# list_query1_1 = [['B cell precursor','B cells 1','B cells 2','Bcells 3'],
-			# 				['CD4 T cells Naive','T cells 1','T cells 2','T cells 3'],
-			# 				['CD14 Monocytes 1','CD14 Monocytes 2']]
-
-			# list_query1_2 = [['B cells 1','B cells 2','Bcells 3'],
-			# 				['CD4 T cells Naive','T cells 1','T cells 2','T cells 3'],
-			# 				['CD14 Monocytes 1','CD14 Monocytes 2']]
-
-			# list_query1_3 = [['B cell precursor','B cells 1','B cells 2','Bcells 3'],
-			# 				['CD4 T cells Naive','T cells 1','T cells 2','T cells 3',
-			# 					'CD4 T cells Mem',
-			# 					'CD8 T cells Naive','CD8 T cells Mem'],
-			# 				['CD14 Monocytes 1','CD14 Monocytes 2']]
-
-			# group_annot_query = 0
-			# column_query1 = 'group_annot_query'
-			# if column_query1 in select_config:
-			# 	group_annot_query = select_config[column_query1]
-
-			# list_group_query = [list_query1_1,list_query1_2,list_query1_3]
-			# list_query1 = list_group_query[group_annot_query]
-
-			# # filename_save_annot2 = '1'
-			# # filename_save_annot2 = '2'
-			# group_annot_query1 = group_annot_query+1
-			# filename_save_annot2 = str(group_annot_query1)
-
-			# dict_annot_1 = dict(zip(celltype_vec_query1,list_query1))
-			# celltype_num_query1 = len(celltype_vec_query1)
-			# for i1 in range(celltype_num_query1):
-			# 	celltype_query = celltype_vec_query1[i1]
-			# 	# query_vec = list_query1[i1]
-			# 	query_vec = dict_annot_1[celltype_query]
-			# 	id1 = df_annot_query1[column_query].isin(query_vec)
-			# 	df_annot_query1.loc[id1,column_query] = celltype_query
-
-			# # output_filename_query = '%s/test_rna_metacell_df_obs.pbmc.1.txt'%(output_file_path_query)
-			# output_filename_query = '%s/test_rna_metacell_df_obs.pbmc.%s.1.txt'%(output_file_path_query,filename_save_annot2)
-			# df_annot_query1.to_csv(output_filename_query,sep='\t')
-			# print('save data ',output_filename_query)
 
 			# group_annot_query = 2
 			df_annot_query1 = self.test_query_annot_2(data=[],group_annot_query=group_annot_query,save_mode=1,verbose=0,select_config=select_config)
@@ -6443,12 +5439,6 @@ class _Base2_learner_1(BaseEstimator):
 			print('df_annot_query1 ',df_annot_query1.shape)
 			print('data preview ')
 			print(df_annot_query1[0:5])
-
-			# optimizer_1 = optimizer
-			# column_query = 'optimizer_1'
-			# if column_query in select_config:
-			# 	optimizer_1 = select_config[column_query]
-			# 	select_config.update({'optimizer':optimizer_1})
 
 			df_signal = self.df_signal
 			df_signal_annot = self.df_signal_annot
@@ -6487,14 +5477,9 @@ class _Base2_learner_1(BaseEstimator):
 			# filename_save_annot2 = '1'
 			# filename_save_annot2 = '2'
 
-			# output_filename = '%s/test_query_%s.proba_normalize_1.npy'%(output_file_path_query,filename_save_annot_query2)
-			# output_filename = '%s/test_query_%s.proba_normalize_1.%s.npy'%(output_file_path_query,filename_save_annot_query2,filename_save_annot2)
-			# np.save(output_filename,dict_query1,allow_pickle=True)
-			# print('save data ',output_filename)
-
 			data_path_save_1 = select_config['data_path_save_1']
 			input_file_path_query = '%s/folder_save_2'%(data_path_save_1)
-			input_filename = '%s/test_query_df_score.beta.pbmc.query2.annot1.copy2_2.txt'%(input_file_path_query)
+			input_filename = '%s/test_query_df_score.beta.pbmc.query2.txt'%(input_file_path_query)
 			df_annot_2_ori = pd.read_csv(input_filename,index_col=0,sep='\t')
 			print('df_annot_2_ori ',df_annot_2_ori.shape)
 			id_1 = (df_annot_2_ori['label']>0)
@@ -6511,8 +5496,6 @@ class _Base2_learner_1(BaseEstimator):
 			# normalize_type = 1
 			flag_normalize = normalize_type
 
-			# thresh_score_vec_query = [0.005,0.01,0.05]
-			# thresh_score_vec_query = [0.01,0.05]
 			thresh_score_vec_query = [0.05]
 			for thresh_score_binary in thresh_score_vec_query:
 						
@@ -6548,14 +5531,9 @@ class _Base2_learner_1(BaseEstimator):
 
 					if save_mode in [1,2]:
 						filename_save_annot2 = '%d'%(group_annot_query+1)
-						# column_query = 'filename_save_annot_query2'
-						# filename_save_annot_query2 = select_config[column_query]
 						filename_save_annot_query_2 = '%s.%s'%(data_file_type,filename_save_annot_query2)
-						# filename_save_annot_query_2 = '%s.%s'%(filename_save_annot_query_2,filename_save_annot2)
 						filename_save_annot_query_2 = '%s.%s.%s.%d'%(filename_save_annot_query_2,filename_save_annot2,str(thresh_score_binary),normalize_type)
-						# output_filename = '%s/test_query_df_score.beta.%s.group2.txt'%(output_file_path_query,data_file_type)
 						output_filename = '%s/test_query_df_score.beta.%s.%s.1.txt'%(output_file_path_query,filename_save_annot_query_2,celltype_query)
-						
 						df_score_query_2.to_csv(output_filename,sep='\t')
 						print('save data ',output_filename)
 
@@ -6584,251 +5562,13 @@ class _Base2_learner_1(BaseEstimator):
 
 				if save_mode>0:
 					filename_save_annot_query_2 = '%s.%s'%(data_file_type,filename_save_annot_query2)
-					# filename_save_annot_query_2 = '%s.%s'%(filename_save_annot_query_2,filename_save_annot2)
-					# output_filename = '%s/test_query_df_score.beta.%s.group2.txt'%(output_file_path_query,data_file_type)
 					filename_save_annot_query_2 = '%s.%s.%s.%d'%(filename_save_annot_query_2,filename_save_annot2,str(thresh_score_binary),normalize_type)
 					output_filename = '%s/test_query_df_score.beta.%s.normalize.1.txt'%(output_file_path_query,filename_save_annot_query_2)
 							
 					df_score_query_pre2.to_csv(output_filename,sep='\t')
 					print('save data ',output_filename)
 
-			# return df_score_query1, df_score_query2, data_vec_query1
 			return df_score_query1, df_score_query2, df_score_query_pre2, data_vec_query1
-
-	## ====================================================
-	# query correlation and mutual information between chromvar score and TF expression
-	def test_chromvar_score_query_pre1(self,data=[],df_gene_annot_expr=[],df_annot=[],feature_vec_query=[],flag_motif_data_load=0,compare_mode=1,save_mode=1,output_file_path='',filename_prefix_save='',filename_save_annot='',verbose=0,select_config={}):
-
-			flag_chromvar_score = 1
-			if flag_chromvar_score>0:
-				if len(df_annot)==0:
-					flag_motif_data_load = 0
-
-				if flag_motif_data_load>0:
-					df1 = df_annot  # the motif name annotation
-				else:
-					if 'filename_translation' in select_config:
-						input_filename = select_config['filename_translation']
-					else:
-						print('please provide motif name translation file')
-						return
-					df1 = pd.read_csv(input_filename,index_col=0,sep='\t')
-			
-				column_id1 = 'motif_id'
-				if 'column_motif' in select_config:
-					column_id1 = select_config['column_motif']
-				df1.index = np.asarray(df1[column_id1])
-				# filename_save_annot_1 = select_config['filename_save_annot_pre1']
-
-				if 'filename_chromvar_score' in select_config:
-					input_filename = select_config['filename_chromvar_score']
-				else:
-					filename_save_annot_1 = select_config['filename_save_annot_pre1']
-					input_filename = '%s/test_peak_read.%s.normalize.1_chromvar_scores.1.csv'%(input_file_path,filename_save_annot_1)
-
-				if os.path.exists(input_filename)==False:
-					print('the file does not exist: %s'%(input_filename))
-					print('please provide chromVAR score file')
-					return
-
-				## query correlation and mutual information between chromvar score and TF expression
-				# output_file_path = input_file_path
-				# output_file_path = save_file_path
-				# df_query_1 = df1
-				df_annot_query = df1
-				data_file_type = select_config['data_file_type']
-				# type_id_query2 = 2
-				if data_file_type in ['CD34_bonemarrow']:
-					type_id_query2 = 0
-				elif data_file_type in ['pbmc']:
-					type_id_query2 = 1
-				else:
-					type_id_query2 = 2
-
-				# filename_save_annot_1 = select_config['filename_save_annot_pre1']
-				motif_query_name_expr = feature_vec_query
-				df_2 = self.test_chromvar_score_query_1(input_filename=input_filename,
-														motif_query_name_expr=motif_query_name_expr,
-														df_gene_annot_expr=df_gene_annot_expr,
-														df_query=df_annot_query,
-														output_file_path=output_file_path,
-														filename_prefix_save=filename_prefix_save,
-														type_id_query=type_id_query2,
-														compare_mode=compare_mode,
-														select_config=select_config)
-				df_query = df_2
-				return df_query
-
-	## ====================================================
-	# chromvar score query: chromvar score comparison with TF expression
-	# query correlation and mutual information between chromvar score and TF expression
-	def test_chromvar_score_query_1(self,input_filename,motif_query_name_expr,df_gene_annot_expr=[],filename_prefix_save='',output_file_path='',output_filename='',
-										df_query=[],type_id_query=0,compare_mode=1,select_config={}):
-
-		df1 = df_query
-		# df1.index = np.asarray(df1['motif_name_ori'])
-		print('df1 ',df1.shape)
-		print(df1)
-		column_motif = 'motif_id'
-		if 'column_motif' in select_config:
-			column_motif = select_config['column_motif']
-		print('column_motif: ',column_motif)
-		# df1.index = np.asarray(df1['motif_id'])
-		df1.index = np.asarray(df1[column_motif])
-		print('df1 ',df1.shape)
-		print(df1)
-
-		chromvar_score = pd.read_csv(input_filename,index_col=0,sep=',')
-		print('chromvar_score ', chromvar_score.shape)
-		print(chromvar_score)
-		sample_id1 = chromvar_score.columns
-		motif_id1 = chromvar_score.index
-		# chromvar_score.index = df1.loc[motif_id1,'motif_name']
-		chromvar_score.index = df1.loc[motif_id1,'tf']
-		if type_id_query==0:
-			str_vec_1 = sample_id1.str.split('.')
-			str_query_list = [str_vec_1.str.get(i1) for i1 in range(3)]
-			str_query1, str_query2, str_query3 = str_query_list
-			query_num2 = len(str_query1)
-			chromvar_score.columns = ['%s#%s-%s'%(str_query1[i2],str_query2[i2],str_query3[i2]) for i2 in range(query_num2)]
-		
-		elif type_id_query==1:
-			sample_id_query1 = sample_id1[0]
-			t_vec_1 = sample_id_query1.split('.')	
-			query_num1 = len(t_vec_1)
-			if query_num1>1:
-				str_vec_1 = sample_id1.str.split('.')
-				str_query_list = [str_vec_1.str.get(i1) for i1 in range(2)]
-				str_query1, str_query2 = str_query_list
-				query_num2 = len(str_query1)
-				chromvar_score.columns = ['%s-%s'%(str_query1[i2],str_query2[i2]) for i2 in range(query_num2)]
-			
-		elif type_id_query in [2]:
-			data_file_type = select_config['data_file_type']
-			if data_file_type in ['system1']:
-				str_vec_1 = sample_id1.str.split('_').str
-				str1 = str_vec_1.get(0)
-				str2 = str_vec_1.get(1)
-				str_vec_2 = pd.Index(str2).str.split('.').str
-
-				str_query_list = [str_vec_2.get(i1) for i1 in range(3)]
-				str_query1, str_query2, str_query3 = str_query_list
-				query_num2 = len(str_query1)
-				chromvar_score.columns = ['%s_%s#%s-%s'%(str1[i2],str_query1[i2],str_query2[i2],str_query3[i2]) for i2 in range(query_num2)]
-			else:
-				print('chromvar_score: use the loaded columns')
-		
-		# rna_ad = self.rna_meta_ad
-		# meta_scaled_exprs = self.meta_scaled_exprs
-		rna_exprs = self.rna_exprs
-		# assert list(chromvar_score.columns)==list(rna_ad.obs_names)
-		# assert list(chromvar_score.columns)==list(meta_scaled_exprs.index)
-		assert list(chromvar_score.columns)==list(rna_exprs.index)
-
-		# if output_file_path=='':
-		# 	data_path_save = select_config['data_path_save']
-		# 	output_file_path = data_path_save
-		
-		if output_filename=='':
-			b = input_filename.find('.csv')
-			output_filename = input_filename[0:b]+'.copy1.csv'
-		
-		chromvar_score.to_csv(output_filename)
-		print('chromvar_score ',chromvar_score.shape,chromvar_score)
-
-		chromvar_score = chromvar_score.loc[~chromvar_score.index.duplicated(keep='first'),:]
-		chromvar_score = chromvar_score.T # shape: (cell_num,peak_num) or (metacell_num,peak_num)
-		# sample_id = meta_scaled_exprs.index
-		sample_id = rna_exprs.index
-		chromvar_score = chromvar_score.loc[sample_id,:]
-
-		if compare_mode==0:
-			return chromvar_score
-
-		from scipy.stats import pearsonr, spearmanr
-		from sklearn.feature_selection import mutual_info_regression
-
-		motif_query_vec = motif_query_name_expr
-		motif_query_num = len(motif_query_vec)
-		print('motif_query_vec ',motif_query_num)
-		field_query_1 = ['spearmanr','pval1','pearsonr','pval2','mutual_info']
-		df_1 = pd.DataFrame(index=motif_query_vec,columns=field_query_1)
-		rna_exprs = self.rna_exprs
-		for i1 in range(motif_query_num):
-			motif_query1 = motif_query_vec[i1]
-			# tf_expr_1 = np.asarray(meta_scaled_exprs[motif_query1])
-			tf_expr_1 = np.asarray(rna_exprs[motif_query1])
-			tf_score_1 = np.asarray(chromvar_score[motif_query1])
-			# corr_value, pvalue = spearmanr(meta_scaled_exprs[motif_query1],chromvar_score[motif_query1])
-			corr_value_1, pval1 = spearmanr(tf_expr_1,tf_score_1)
-			corr_value_2, pval2 = pearsonr(tf_expr_1,tf_score_1)
-			t_mutual_info = mutual_info_regression(tf_expr_1[:,np.newaxis], tf_score_1, discrete_features=False, n_neighbors=5, copy=True, random_state=0)
-			t_mutual_info = t_mutual_info[0]
-			df_1.loc[motif_query1,:] = [corr_value_1,pval1,corr_value_2,pval2,t_mutual_info]
-
-		df_1 = df_1.sort_values(by=field_query_1,ascending=[False,True,False,True,False])
-		
-		filename = output_filename
-		b = filename.find('.csv')
-		output_filename = '%s.copy2.txt'%(filename[0:b])
-		field_query_2 = ['highly_variable','means','dispersions','dispersions_norm']
-		
-		# if len(df_gene_annot_expr)==0:
-		# 	df_gene_annot_expr = self.df_gene_annot_expr
-
-		# column_sort = []
-		flag_query2 = 0
-		if len(df_gene_annot_expr)>0:
-			flag_query2 = 1
-
-		# if len(df_gene_annot_expr)>0:
-		if flag_query2>0:
-			column_query = 'gene_name'
-			column_vec_query = df_gene_annot_expr.columns
-			if column_query in column_vec_query:
-				df_gene_annot_expr.index = np.asarray(df_gene_annot_expr['gene_name'])
-			else:
-				df_gene_annot_expr['gene_name'] = np.asarray(df_gene_annot_expr.index)
-			gene_name_query_ori = df_gene_annot_expr.index
-			motif_id1 = df_1.index
-			motif_id2 = motif_id1.intersection(gene_name_query_ori,sort=False)
-			df_1.loc[motif_id2,field_query_2] = df_gene_annot_expr.loc[motif_id2,field_query_2]
-			# df_1.to_csv(output_filename,sep='\t',float_format='%.6E')
-		
-		mean_value = df_1.mean(axis=0)
-		median_value = df_1.median(axis=0)
-		print('df_1, mean_value, median_value ',df_1.shape,mean_value,median_value)
-
-		if flag_query2>0:
-			df_2 = df_1.sort_values(by=['highly_variable','dispersions_norm','means','spearmanr','pval1','pearsonr','pval2','mutual_info'],ascending=[False,False,False,False,True,False,True,False])
-			# output_filename = '%s/test_peak_read.%s.normalize.chromvar_scores.tf_expr.query1.sort2.1.txt'%(output_file_path,filename_prefix_save)
-			df_2.to_csv(output_filename,sep='\t',float_format='%.6E')
-			print('save data ',output_filename)
-
-			df_sort2 = df_1.sort_values(by=['spearmanr','highly_variable','dispersions_norm','means','pval1','pearsonr','pval2','mutual_info'],ascending=[False,False,False,False,True,False,True,False])
-			# output_filename = '%s/test_peak_read.%s.normalize.chromvar_scores.tf_expr.query1.sort2.1.txt'%(output_file_path,filename_prefix_save)
-			output_filename_2 = '%s.sort2.copy2.txt'%(filename[0:b])
-			df_sort2.to_csv(output_filename_2,sep='\t',float_format='%.6E')
-			print('save data ',output_filename_2)
-
-			id1 = (df_2['highly_variable']==True)
-			motif_id2 = df_2.index
-			motif_query_2 = motif_id2[id1]
-			motif_query_num2 = len(motif_query_2)
-			motif_query_3 = motif_id2[~id1]
-			motif_query_num3 = len(motif_query_3)
-			mean_value = df_2.loc[id1,:].mean(axis=0)
-			median_value = df_2.loc[id1,:].median(axis=0)
-			mean_value_2 = df_2.loc[(~id1),:].mean(axis=0)
-			median_value_2 = df_2.loc[(~id1),:].median(axis=0)
-			print('highly_variable tf expr, mean_value, median_value ',motif_query_num2,mean_value,median_value)
-			print('group 2 tf expr, mean_value, median_value ',motif_query_num3,mean_value_2,median_value_2)
-		else:
-			df_2 = df_1.sort_values(by=['spearmanr','pval1','pearsonr','pval2','mutual_info'],ascending=[False,True,False,True,False])
-			df_2.to_csv(output_filename,sep='\t',float_format='%.6E')
-			print('save data ',output_filename)
-
-		return df_2
 
 	## ====================================================
 	# prediction performance score
@@ -6843,8 +5583,6 @@ class _Base2_learner_1(BaseEstimator):
 		score7, pvalue = spearmanr(y,y_predicted)
 		t_mutual_info = mutual_info_regression(y[:,np.newaxis], y_predicted, discrete_features=False, n_neighbors=5, copy=True, random_state=0)
 		t_mutual_info = t_mutual_info[0]
-
-		# vec1 = [score1, score2[0], score2[1], score3, score4, score5, score6]
 		vec1 = [score1, score2[0], score2[1], score3, score4, score5, score6, score7, pvalue, t_mutual_info]
 
 		field_query_1 = ['mse','pearsonr','pvalue1','explained_variance','mean_absolute_error','median_absolute_error','r2','spearmanr','pvalue2','mutual_info']
@@ -6884,10 +5622,6 @@ class _Base2_learner_1(BaseEstimator):
 					model_path_save = select_config['model_path_save']
 					output_file_path_query = model_path_save
 
-				# flag_binary = 1
-				# flag_binary = 2
-				# flag_binary = 3
-				# type_binary = flag_binary
 				data_vec_query1 = data
 				# data_vec_query =[df_proba_query]
 				df_link_query = data_vec_query1[0]
@@ -6910,9 +5644,10 @@ class _Base2_learner_1(BaseEstimator):
 				data_path_save_1 = select_config['data_path_save_1']
 				input_file_path_1 = '%s/data1'%(data_path_save_1)
 				if type_compare in [0]:
-					input_filename = '%s/test_peak_read.pbmc.0.1.normalize.1_chromvar_scores.1.copy1.sort2.copy2.txt'%(input_file_path_1) # chromVAR score compared with TF expression;
+					input_filename = '%s/test_peak_read.pbmc.0.1.normalize.chromvar_score.compare_1.txt'%(input_file_path_1) # chromVAR score compared with TF expression;	
 				elif type_compare in [1]:
-					input_filename = '%s/test_peak_read.pbmc.0.1.normalize.1_chromvar_scores.1.copy1.combine.1.sort2.copy2.txt'%(input_file_path_1)	# chromVAR score compared with TF activity score computed based on TF ChIP-seq signals;
+					input_filename = '%s/test_peak_read.pbmc.0.1.normalize.chromvar_score.compare_2.txt'%(input_file_path_1)	# chromVAR score compared with TF activity score computed based on TF ChIP-seq signals;
+				
 				df_score_1 = pd.read_csv(input_filename,index_col=0,sep='\t')
 
 				feature_vec_query1 = df_score_1.index
@@ -7163,13 +5898,9 @@ class _Base2_learner_1(BaseEstimator):
 			df_query_1 = df_query_1.sort_values(by=['spearmanr'],ascending=False)
 
 		atac_read_expected_sub1 = atac_read_expected.loc[:,peak_loc_query]
-		# list1 = [df_motif_annot1,df_score_ori,atac_read_expected_sub1,df_score_expected,df_score_deviation,df_query_1]
 		list1 = [df_score_ori,df_score_expected,df_score_deviation_ori,df_score_deviation_query1,df_query_1]
-		# filename_annot_vec_2 = ['motif_query_annot1','score_ori','peak_mtx_expected_sub1','score_expeced','score_deviation','score_compare']
 			
-		# filename_annot_vec_2 = ['score_ori','score_expeced','score_deviation_ori','score_deviation','score_compare']
 		filename_annot_vec_2 = ['score_ori','score_expeced','score_deviation_ori','score_deviation','score_compare_query2']
-		# filename_annot_vec_2 = ['score_ori','score_deviation_ori','score_deviation','score_compare_query2']
 		output_filename_list = []
 		flag_binary = type_binary
 		filename_save_annot_query2 = select_config['filename_save_annot_query2']
@@ -7261,17 +5992,7 @@ class _Base2_learner_1(BaseEstimator):
 					model = pickle.load(open(save_filename,'rb'))
 					y_proba_1 = model.predict_proba(x_test)
 					y_proba = y_proba_1[:,1]
-					# y_pred = (y_proba>thresh_1).astype(int)
 				else:
-					# model.load_weights(save_filename)
-					# lr = learner.lr
-					# optimizer = learner.optimizer
-					# if optimizer in ['sgd']:
-					# 	momentum = 0.9
-					# 	optimizer=gradient_descent_v2.SGD(lr, momentum=momentum)
-					# else:
-					# 	optimizer = adam_v2.Adam(learning_rate=lr)
-					# # model.compile(optimizer=optimizer,loss='binary_crossentropy')
 					model = load_model(save_filename)
 					# if counter==0:
 					if i1==0:
@@ -7280,7 +6001,6 @@ class _Base2_learner_1(BaseEstimator):
 					y_proba = model.predict(x_test)
 					if y_proba.shape[1]==1:
 						y_proba = np.ravel(y_proba)
-					# y_pred = (y_proba>thresh_1).astype(int)
 
 				y_pred = (y_proba>thresh_score_binary).astype(int)
 
@@ -7576,289 +6296,6 @@ class _Base2_learner_1(BaseEstimator):
 				dict_proba_query1.update({'feature_query':[y_proba,thresh_score]})
 
 		return df_proba_1, df_pred, dict_proba_query1
-
-	## ====================================================
-	# prediction performance score
-	def test_compare_1(self,data=[],df_signal=[],learner=None,feature_vec_1=[],feature_vec_2=[],model_type=0,maxiter=1,save_mode=1,output_filename='',verbose=0,select_config={}):
-
-		input_dir = select_config['input_dir']
-		data_vec = data
-		feature_type_num = len(data_vec)
-		if feature_type_num>1:
-			df_feature_query1, df_feature_query2 = data_vec[0:2]
-
-			# concatenate the feature
-			df_feature_pre1 = pd.concat([df_feature_query1,df_feature_query2],axis=1,join='outer',ignore_index=False)
-
-		else:
-			df_feature_query1 = data_vec[0]
-			df_feature_pre1 = df_feature_query1
-
-		if len(df_signal)==0:
-			input_filename = '%s/bed_file/test_query_signal_2.txt'%(input_dir)
-			df_signal = pd.read_csv(input_filename,index_col=0,sep='\t')
-
-		df_signal = df_signal.fillna(0)
-		feature_vec_query1 = df_signal.columns  # TFs with ChIP-seq signals;
-
-		model_path_save = select_config['model_path_save']
-		model_type_id1 = select_config['model_type_id1']
-		filename_save_annot = model_type_id1
-		feature_vec_query2 = df_feature_pre1.index  # peak loci
-
-		if len(feature_vec_2)==0:
-			feature_vec_2 = feature_vec_query2
-
-		x_test = df_feature_pre1.loc[feature_vec_2,:]
-		print('x_test ',x_test.shape)
-		print('data preview ')
-		print(x_test[0:2])
-
-		from utility_1 import score_function_multiclass1, score_function_multiclass2
-
-		feature_query_num1 = len(feature_vec_1)
-		thresh_1 = 0.5
-		list_score_query1 = []
-		list_pre1 = []
-
-		dict_pred = dict()
-		feature_num1 = len(feature_vec_query1)
-		counter=0
-		for i1 in range(feature_num1):
-			feature_query = feature_vec_query1[i1]
-			t_vec_1 = feature_query.split('.')
-			motif_id2 = t_vec_1[0]
-			motif_id = t_vec_1[1]
-			feature_query1 = motif_id
-			print('motif_id, motif_id2 ',motif_id,motif_id2,i1)
-
-			for i2 in range(maxiter):
-				iter_id = i2
-				if model_type==0:
-					save_filename = '%s/test_model_%s_%s_2.h5'%(model_path_save,feature_query1,filename_save_annot)
-					# if os.path.exists(save_filename)==False:
-					# 	print('the file does not exist ',save_filename,i1)
-					# 	continue
-					# model = pickle.load(open(save_filename,'rb'))
-				else:
-					dim_vec = learner.dim_vec
-					batch_size = learner.batch_size
-					early_stop = learner.early_stop
-					n_epoch = learner.n_epoch
-					optimizer = learner.optimizer
-					drop_rate = learner.dropout
-					# model = learner.model[feature_query1]
-
-					n_layer_1 = len(dim_vec)
-					dim1 = dim_vec[0]
-					t_vec_query = [str(dim_1) for dim_1 in dim_vec[0:-1]]
-					dim_query = '_'.join(t_vec_query)
-
-					# filename_save_annot_2 = '%d_%d'%(early_stop,n_epoch)
-					# filename_save_annot_query = '%d_%d_%d'%(n_layer_1,dim1,batch_size)
-					# filename_save_annot_2 = '%s_%s_%d_%d'%(optimizer,str(drop_rate),early_stop,n_epoch)
-					# filename_save_annot_query = '%d_%d_%d_%s'%(n_layer_1,dim1,batch_size,filename_save_annot_2)
-
-					# n_epoch = 100
-					# n_epoch = 20
-					filename_save_annot_2 = '%s_%s_%d_%d'%(optimizer,str(drop_rate),early_stop,n_epoch)
-					filename_save_annot_query = '%d_%s_%d_%s'%(n_layer_1,dim_query,batch_size,filename_save_annot_2)
-					if maxiter==1:
-						save_filename = '%s/test_model_%s_%s.h5'%(model_path_save,feature_query1,filename_save_annot_query)
-						if os.path.exists(save_filename)==False:
-							# print('the file does not exist ',save_filename,i1)
-							save_filename = '%s/test_model_%s_%s.%d.h5'%(model_path_save,feature_query1,filename_save_annot_query,maxiter)
-					else:
-						save_filename = '%s/test_model_%s_%s.%d.%d.h5'%(model_path_save,feature_query1,filename_save_annot_query,maxiter,iter_id)
-
-				if os.path.exists(save_filename)==False:
-					# print('the file does not exist ',save_filename,i1)
-					continue
-
-				if model_type==0:
-					model = pickle.load(open(save_filename,'rb'))
-					y_proba_1 = model.predict_proba(x_test)
-					y_proba = y_proba_1[:,1]
-					y_pred = (y_proba>thresh_1).astype(int)
-				else:
-					# model.load_weights(save_filename)
-					model = load_model(save_filename)
-					if counter==0:
-						print(model.summary())
-
-					y_proba = model.predict(x_test)
-					if y_proba.shape[1]==1:
-						y_proba = np.ravel(y_proba)
-					y_pred = (y_proba>thresh_1).astype(int)
-
-				print('y_pred, y_proba ',y_pred.shape,y_proba.shape)
-				print(y_pred[0:2])
-				print(y_proba[0:2])
-				print('input_filename ',save_filename)
-				counter +=1
-
-				# if not (feature_query1 in feature_vec_query1):
-				# 	print('the TF signal not included ',feature_query1,i1)
-				# 	continue
-
-				y_signal_query = df_signal.loc[feature_vec_2,feature_query]
-				y_test = (y_signal_query>0).astype(int)
-				print('y_test ',y_test.shape)
-				print(y_signal_query[0:2])
-				# print(y_test[0:2])
-
-				# compute the evaluation metric scores
-				df_score_query1 = score_function_multiclass2(y_test,y_pred=y_pred,y_proba=y_proba,average='binary',average_2='macro')
-				
-				list_score_query1.append(df_score_query1)
-				# list_pre1.append([motif_id,motif_id2])
-				list_pre1.append([motif_id,motif_id2,iter_id])
-
-		df_score_query = pd.concat(list_score_query1,axis=1,join='outer',ignore_index=False)
-		df_score_query = df_score_query.T
-		feature_query_1 = np.asarray(list_pre1)
-		# df_score_query.loc[:,['motif_id','motif_id2']] = feature_query_1
-		df_score_query.loc[:,['motif_id','motif_id2','iter_id']] = feature_query_1
-		df_score_query.index = np.asarray(df_score_query['motif_id'])
-
-		if (save_mode>0) and (output_filename!=''):
-			df_score_query.to_csv(output_filename,sep='\t',float_format='%.7f')
-
-		return df_score_query
-	
-	## ====================================================
-	# TF binding prediction performance evaluation
-	def test_query_compare_binding_plot_1(self,data=[],input_filename_list=[],method_type_vec=[],cell_type='',score_type='',type_query=0,input_file_path='',save_mode=1,output_file_path='',output_filename='',filename_prefix_save='',filename_save_annot='',verbose=0,select_config={}):
-
-		input_file_path = 'folder_save_2'
-		input_filename = '%s/test_query_df_score.beta.combine.2.txt'%(input_file_path)
-		df_pre1 = pd.read_csv(input_filename,index_col=0,sep='\t')
-		print('df_pre1 ',df_pre1.shape)
-		
-		group_motif_default = 2
-		method_type_group_default = 'phenograph.20'
-		column_1 = 'celltype'
-		celltype_1 = 'B_cell'
-		field_query_1 = ['group_motif','method_type_group',column_1]
-		list_1 = [group_motif_default,method_type_group_default,celltype_1]
-		for (field_id,query_value) in zip(field_query_1,list_1):
-			df_pre1[field_id] = df_pre1[field_id].fillna(query_value)
-				
-		id_query = (df_pre1['group_motif']==group_motif_default)
-		df_pre1 = df_pre1.loc[id_query,:]
-		df_pre1 = df_pre1.drop_duplicates(subset=['motif_id2','method_type'])
-		print('df_pre1 ',df_pre1.shape)
-		print(df_pre1[0:2])
-		
-		if (cell_type!='') and (cell_type!='combine'):
-			df_1 = df_pre1.loc[(df_pre1[column_1]==cell_type),:]
-		else:
-			cell_type = 'combine'
-			df_1 = df_pre1
-
-		motif_id2_vec = df_1['motif_id2'].unique()
-		motif_id2_num = len(motif_id2_vec)
-		print('motif_id2_vec ',motif_id2_num)
-
-		method_type_1 = method_type_vec[0]
-		id_1= df_1['method_type'].isin([method_type_1])
-		df_1 = df_1.loc[id_1,:]
-
-		method_type_query1 = 'Learner II'
-		if (method_type_1==method_type_query1):
-			method_type_1_ori = method_type_1
-			method_type_1 = '%s_1'%(method_type_1)
-			df_1['method_type'] = method_type_1
-
-		print('df_1 ',df_1.shape)
-		print(df_1[0:2])
-
-		df_list = data
-		if len(df_list)==0:
-			file_num = len(input_filename_list)
-			for i1 in range(file_num):
-				input_filename = input_filename_list[i1]
-				df1 = pd.read_csv(input_filename,index_col=0,sep='\t')
-				id1 = df1['method_type'].isin(method_type_vec[1:])
-				df_query1 = df1.loc[id1,:]
-
-				if cell_type!='':
-					id2 = df_query1['motif_id2'].isin(motif_id2_vec)
-					df_query1 = df_query1.loc[id2,:]
-
-				df_list.append(df_query1)
-				print('df_query1 ',df_query1.shape)
-				print(df_query1[0:2])
-				print('load data from ',input_filename)
-
-		df_list1 = [df_1] + df_list
-		df_2 = pd.concat(df_list1,axis=0,join='outer',ignore_index=False)
-
-		print('df_2 ',df_2.shape)
-		print(df_2[0:2])
-		method_type_vec_query = df_2['method_type'].unique()
-		method_type_num_query = len(method_type_vec_query)
-		print('method_type_vec_query ',method_type_num_query)
-		print(method_type_vec_query)
-
-		import seaborn as sns
-		plt.figure(figsize=(5,5))
-		method_type_num = len(method_type_vec)
-	
-		# column_vec_query = ['motif_id','motif_id2','method_type',score_type]
-		column_vec_query = ['motif_id2','method_type',score_type]
-		type_id2 = type_query
-
-		size_2 = 5
-		method_type_num2 = method_type_num-1
-		size_1 = int(size_2)*method_type_num2 + (method_type_num2-1)
-		fig, axes_query = plt.subplots(nrows=1, ncols=method_type_num2, figsize=(size_1, size_2))
-
-		for i1 in range(1,method_type_num):
-			method_type_query = method_type_vec[i1]
-			method_type_vec_query = [method_type_1,method_type_query]
-			print('method_type_vec_query ',method_type_vec_query)
-
-			id_query = df_2['method_type'].isin(method_type_vec_query)
-			df_query = df_2.loc[id_query,:]
-			if type_id2==0:
-				df_query[score_type] = df_query[score_type].fillna(0)
-			else:
-				df_query = df_query.dropna(subset=[score_type])
-
-			ax_1 = axes_query[i1-1]
-			# convert long format dataframe to wide format dataframe
-			df_query_2 = df_query.pivot(index='motif_id2',columns='method_type',values=score_type)
-			print('df_query_2 ',df_query_2.shape)
-			print(df_query_2[0:2])
-			mean_value = df_query_2.mean(axis=0)
-			print('mean_value ',mean_value,method_type_vec_query)
-
-			column_2 = 'difference'
-			df_pre1 = df_query.copy()
-			df_query = df_query_2
-			df_query[column_2] = (df_query[method_type_query]-df_query[method_type_1])
-			thresh_1 = 0.001
-			id_query2 = (df_query[column_2]>thresh_1)
-			df_query2 = df_query.loc[id_query2,:]
-
-			id_query3 = (df_query[column_2]<(-thresh_1))
-			df_query3 = df_query.loc[id_query3,:]
-			
-			query_num1 = df_query.shape[0]
-			query_num2 = df_query2.shape[0]
-			query_num3 = df_query3.shape[0]
-
-			g1 = sns.scatterplot(data=df_query,x=method_type_1,y=method_type_query,ax=ax_1)
-			ax_1.set_title('%s (%d:%d)'%(score_type,query_num2,query_num3))
-
-			output_filename_query = '%s/test_compare_%s_%s.%s.1.txt'%(output_file_path,method_type_1,method_type_query,cell_type)
-			df_query.to_csv(output_filename_query,sep='\t')
-			print('save data ',output_filename_query)
-
-		plt.savefig(output_filename)
-
-		return df_2
 
 def run_pre1(run_id=1,species='human',cell=0,generate=1,chromvec=[],testchromvec=[],data_file_type='',metacell_num=500,peak_distance_thresh=100,highly_variable=0,
 				input_dir='',filename_atac_meta='',filename_rna_meta='',filename_motif_data='',filename_motif_data_score='',file_mapping='',file_peak='',
